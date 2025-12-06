@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ficha Clínica - BTX-TEC</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <meta name="theme-color" content="#0f766e" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .app {
+      background: rgba(15,23,42,0.95);
+      border-radius: 18px;
+      max-width: 900px;
+      width: 100%;
+      padding: 20px 18px 22px;
+      box-shadow: 0 25px 60px rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,184,0.3);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #22d3ee, #0ea5e9 40%, #1e293b 75%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 18px;
+      color: white;
+      box-shadow: 0 0 24px rgba(56,189,248,0.7);
+    }
+    .logo-text-main {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+    .logo-text-sub {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+    .pill {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34,211,238,0.6);
+      color: #a5f3fc;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    h2.section-title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #9ca3af;
+      margin-bottom: 8px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px 14px;
+    }
+    label {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      background: rgba(15,23,42,0.85);
+      border-radius: 10px;
+      border: 1px solid rgba(55,65,81,0.9);
+      padding: 7px 9px;
+      color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
+      transition: border 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #22d3ee;
+      box-shadow: 0 0 0 1px rgba(34,211,238,0.55);
+      background: rgba(15,23,42,1);
+    }
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+    .section-card {
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 55%);
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.3);
+      padding: 12px 12px 14px;
+      margin-bottom: 10px;
+    }
+    .section-card:nth-of-type(2) {
+      background: radial-gradient(circle at top right, rgba(52,211,153,0.14), transparent 55%);
+    }
+    .section-card:nth-of-type(3) {
+      background: radial-gradient(circle at top, rgba(129,140,248,0.2), transparent 60%);
+    }
+    .inline {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .inline span.dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: #22d3ee;
+    }
+    .footer {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+    button {
+      border-radius: 999px;
+      border: none;
+      font-size: 13px;
+      padding: 7px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(148,163,184,0.8);
+      color: #e5e7eb;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      color: white;
+      box-shadow: 0 14px 30px rgba(37,99,235,0.45);
+    }
+    .meta {
+      font-size: 10px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+    @media (max-width: 640px) {
+      .app { padding: 16px 12px 18px; border-radius: 14px; }
+      .logo-text-main { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <div class="logo-area">
+        <div class="logo-circle">BT</div>
+        <div>
+          <div class="logo-text-main">BTX-TEC | Ficha Clínica</div>
+          <div class="logo-text-sub">Baixo Tocantins · Odontologia Digital Offline</div>
+        </div>
+      </div>
+      <div class="pill">PWA Offline</div>
+    </div>
+
+    <form id="fichaForm">
+      <!-- Dados do paciente -->
+      <div class="section-card">
+        <h2 class="section-title">Dados do paciente</h2>
+        <div class="grid">
+          <div>
+            <label for="nome">Nome completo</label>
+            <input id="nome" name="nome" required />
+          </div>
+          <div>
+            <label for="nascimento">Data de nascimento</label>
+            <input id="nascimento" name="nascimento" type="date" />
+          </div>
+          <div>
+            <label for="telefone">Telefone / WhatsApp</label>
+            <input id="telefone" name="telefone" type="tel" />
+          </div>
+          <div>
+            <label for="cpf">CPF</label>
+            <input id="cpf" name="cpf" />
+          </div>
+          <div>
+            <label for="endereco">Endereço</label>
+            <input id="endereco" name="endereco" />
+          </div>
+          <div>
+            <label for="responsavel">Responsável (se menor)</label>
+            <input id="responsavel" name="responsavel" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Anamnese -->
+      <div class="section-card">
+        <h2 class="section-title">Anamnese</h2>
+        <div class="grid">
+          <div>
+            <label for="queixa">Queixa principal</label>
+            <textarea id="queixa" name="queixa"></textarea>
+          </div>
+          <div>
+            <label for="historia">História da moléstia / evolução</label>
+            <textarea id="historia" name="historia"></textarea>
+          </div>
+          <div>
+            <label for="doencas">Doenças sistêmicas / uso de medicamentos</label>
+            <textarea id="doencas" name="doencas"></textarea>
+          </div>
+          <div>
+            <label for="alergias">Alergias</label>
+            <textarea id="alergias" name="alergias"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exame clínico e plano -->
+      <div class="section-card">
+        <h2 class="section-title">Exame clínico e plano de tratamento</h2>
+        <div class="grid">
+          <div>
+            <label for="exame">Exame clínico / achados</label>
+            <textarea id="exame" name="exame"></textarea>
+          </div>
+          <div>
+            <label for="plano">Plano de tratamento</label>
+            <textarea id="plano" name="plano"></textarea>
+          </div>
+          <div>
+            <label for="obs">Observações adicionais</label>
+            <textarea id="obs" name="obs"></textarea>
+          </div>
+        </div>
+        <div class="inline">
+          <span class="dot"></span>
+          <span>Os dados são armazenados apenas neste dispositivo (uso offline).</span>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button type="button" class="btn-outline" onclick="limparFicha()">Limpar</button>
+        <button type="button" class="btn-primary" onclick="salvarPDF()">Gerar PDF</button>
+      </div>
+      <div class="meta">Versão local · BTX-TEC · Este app pode ser instalado na tela inicial do dispositivo.</div>
+    </form>
+  </div>
+
+  <script>
+    // Registro do service worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(console.error);
+      });
+    }
+
+    function limparFicha() {
+      if (confirm('Deseja realmente limpar todos os campos?')) {
+        document.getElementById('fichaForm').reset();
+        localStorage.removeItem('btx-ficha-dados');
+      }
+    }
+
+    // Salvar em localStorage para uso offline simples
+    const form = document.getElementById('fichaForm');
+    form.addEventListener('input', () => {
+      const dados = Object.fromEntries(new FormData(form).entries());
+      localStorage.setItem('btx-ficha-dados', JSON.stringify(dados));
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const salvo = localStorage.getItem('btx-ficha-dados');
+      if (salvo) {
+        const dados = JSON.parse(salvo);
+        Object.keys(dados).forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.value = dados[id];
+        });
+      }
+    });
+
+    // Geração de PDF simples via impressão
+    function salvarPDF() {
+      window.print();
+    }
+  </script>
+</body>
+</html>

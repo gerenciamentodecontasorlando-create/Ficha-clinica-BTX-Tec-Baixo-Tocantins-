@@ -38,6 +38,135 @@
       align-items: flex-start;
     }
 
+    /* LOGIN */
+
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.98), #020617 70%);
+      z-index: 20;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 380px;
+      background: #020617;
+      border-radius: 18px;
+      padding: 20px 18px 18px;
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: 0 16px 40px rgba(15,23,42,0.95);
+    }
+
+    .login-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .login-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 20%, #22d3ee, #0f172a 55%, #020617);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5),
+        0 0 18px rgba(56, 189, 248, 0.7);
+      font-size: 16px;
+      font-weight: 700;
+      color: #e5e7eb;
+      letter-spacing: 0.5px;
+    }
+
+    .login-title {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .login-sub {
+      font-size: 12px;
+      color: var(--texto-suave);
+      margin-bottom: 10px;
+    }
+
+    .login-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+
+    .login-field label {
+      font-size: 12px;
+      color: var(--texto-suave);
+    }
+
+    .login-field input {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 10px;
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      padding: 7px 9px;
+      color: var(--texto);
+      font-size: 13px;
+    }
+
+    .login-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
+    }
+
+    .login-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .login-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: linear-gradient(135deg, #1d4ed8, #22c55e);
+      color: #f9fafb;
+      font-size: 13px;
+      padding: 7px 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(15,23,42,0.9);
+    }
+
+    .login-link {
+      font-size: 11px;
+      color: var(--texto-suave);
+      text-align: center;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .login-alerta {
+      font-size: 11px;
+      color: #fecaca;
+      margin-top: 4px;
+    }
+
+    /* APP */
+
     .app-container {
       width: 100%;
       max-width: 1120px;
@@ -47,6 +176,7 @@
       box-shadow: var(--shadow);
       border: 1px solid rgba(148, 163, 184, 0.22);
       overflow: hidden;
+      display: none; /* fica oculto até login */
     }
 
     header {
@@ -395,7 +525,6 @@
       display: block;
     }
 
-    /* Impressão: mostra só a seção escolhida */
     @media print {
       body {
         background: #fff;
@@ -406,6 +535,9 @@
       .conteudo {
         all: unset;
         display: block;
+      }
+      .login-overlay {
+        display: none !important;
       }
       header,
       .tabs {
@@ -425,9 +557,62 @@
     }
   </style>
 </head>
-
 <body>
-  <div class="app-container nao-imprimir">
+  <!-- TELA DE LOGIN -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">BTX</div>
+        <div>
+          <div class="login-title">BTX-TEC</div>
+          <div class="login-sub" id="loginSubtitulo">
+            Crie uma senha de acesso para este dispositivo.
+          </div>
+        </div>
+      </div>
+
+      <div id="areaDefinirSenha">
+        <div class="login-field">
+          <label for="senhaNova">Defina uma senha (4 a 8 dígitos)</label>
+          <input type="password" id="senhaNova" inputmode="numeric" maxlength="8" />
+        </div>
+        <div class="login-field">
+          <label for="senhaNova2">Repita a senha</label>
+          <input type="password" id="senhaNova2" inputmode="numeric" maxlength="8" />
+        </div>
+        <div class="login-actions">
+          <button class="login-btn" id="btnSalvarSenha">
+            Salvar senha e entrar
+          </button>
+        </div>
+        <div class="login-alerta">
+          Esta senha fica gravada apenas neste aparelho (armazenamento local).
+          Se você esquecer, será preciso limpar os dados do navegador e configurá-la de novo.
+        </div>
+      </div>
+
+      <div id="areaLogin" style="display:none;">
+        <div class="login-field">
+          <label for="senhaLogin">Digite sua senha</label>
+          <input type="password" id="senhaLogin" inputmode="numeric" maxlength="8" />
+        </div>
+        <div class="login-actions">
+          <button class="login-btn" id="btnEntrar">
+            Entrar na ficha clínica
+          </button>
+        </div>
+        <div class="login-alerta">
+          Dica: não use a mesma senha de banco ou e-mail. Esta proteção é apenas local para o consultório.
+        </div>
+        <div class="login-link" id="linkResetar">
+          Esqueci a senha / configurar novamente (apaga dados do dentista)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APP -->
+  <div class="app-container nao-imprimir" id="appContainer">
     <header>
       <div class="marca">
         <div class="marca-logo">
@@ -440,8 +625,7 @@
       </div>
       <div class="header-info">
         <div>Prontuário, receituário, atestado e orçamento em um só lugar.</div>
-        <div>Marca discreta • Dados do dentista configuráveis • Uso livre entre
-          dentistas.</div>
+        <div>Marca discreta • Dados do dentista configuráveis • Uso livre entre dentistas.</div>
       </div>
     </header>
 
@@ -602,7 +786,6 @@
           </div>
         </div>
       </section>
-
       <!-- COLUNA DIREITA -->
       <section>
         <!-- RECEITUÁRIO -->
@@ -775,8 +958,82 @@
       </section>
     </main>
   </div>
-
   <script>
+    // ---- LOGIN LOCAL ----
+    const STORAGE_SENHA = "btx_senha";
+    const loginOverlay = document.getElementById("loginOverlay");
+    const appContainer = document.getElementById("appContainer");
+    const areaDefinirSenha = document.getElementById("areaDefinirSenha");
+    const areaLogin = document.getElementById("areaLogin");
+    const loginSubtitulo = document.getElementById("loginSubtitulo");
+    const btnSalvarSenha = document.getElementById("btnSalvarSenha");
+    const btnEntrar = document.getElementById("btnEntrar");
+    const senhaNova = document.getElementById("senhaNova");
+    const senhaNova2 = document.getElementById("senhaNova2");
+    const senhaLogin = document.getElementById("senhaLogin");
+    const linkResetar = document.getElementById("linkResetar");
+
+    function mostrarApp() {
+      if (loginOverlay) loginOverlay.style.display = "none";
+      if (appContainer) appContainer.style.display = "block";
+    }
+
+    function verificarEstadoLogin() {
+      const senhaSalva = localStorage.getItem(STORAGE_SENHA);
+      if (senhaSalva) {
+        // Já existe senha configurada: mostra tela de login
+        areaDefinirSenha.style.display = "none";
+        areaLogin.style.display = "block";
+        loginSubtitulo.textContent = "Digite sua senha para acessar a ficha clínica.";
+      } else {
+        // Não existe senha: define nova
+        areaDefinirSenha.style.display = "block";
+        areaLogin.style.display = "none";
+        loginSubtitulo.textContent = "Crie uma senha de acesso para este dispositivo.";
+      }
+    }
+
+    btnSalvarSenha.addEventListener("click", () => {
+      const s1 = senhaNova.value.trim();
+      const s2 = senhaNova2.value.trim();
+      if (s1.length < 4 || s1.length > 8) {
+        alert("A senha deve ter entre 4 e 8 dígitos.");
+        return;
+      }
+      if (s1 !== s2) {
+        alert("As senhas não conferem.");
+        return;
+      }
+      localStorage.setItem(STORAGE_SENHA, s1);
+      senhaNova.value = "";
+      senhaNova2.value = "";
+      mostrarApp();
+    });
+
+    btnEntrar.addEventListener("click", () => {
+      const s = senhaLogin.value.trim();
+      const senhaSalva = localStorage.getItem(STORAGE_SENHA);
+      if (s && senhaSalva && s === senhaSalva) {
+        senhaLogin.value = "";
+        mostrarApp();
+      } else {
+        alert("Senha incorreta.");
+      }
+    });
+
+    if (linkResetar) {
+      linkResetar.addEventListener("click", () => {
+        if (!confirm("Isso vai apagar a senha e os dados do dentista neste aparelho. Deseja continuar?")) return;
+        localStorage.removeItem(STORAGE_SENHA);
+        // apagar dados do dentista também
+        ["dentista_nome","dentista_cro","dentista_especialidade","dentista_telefone","dentista_endereco"].forEach(id => {
+          localStorage.removeItem("btx_dentista_" + id);
+        });
+        verificarEstadoLogin();
+        alert("Configuração de senha resetada. Defina uma nova senha.");
+      });
+    }
+
     // ---- TROCA DE ABAS ----
     function ativarAba(id) {
       document.querySelectorAll(".tab-btn").forEach((btn) => {
@@ -833,7 +1090,7 @@
     document.getElementById("btnSalvarDentista").addEventListener("click", salvarDentista);
     document.getElementById("btnLimparDentista").addEventListener("click", limparDentista);
 
-    // ---- SALVAR FICHA (OPCIONAL: localStorage simples) ----
+    // ---- SALVAR FICHA (última ficha) ----
     function salvarFicha() {
       const dados = {
         nome: document.getElementById("paciente_nome").value,
@@ -859,7 +1116,7 @@
         const texto = btn.dataset.med || "";
         const campo = document.getElementById("receita_texto");
         if (!campo) return;
-        campo.value = (campo.value + "\n" + texto).trim();
+        campo.value = (campo.value + "\\n" + texto).trim();
       });
     });
 
@@ -867,7 +1124,7 @@
     function atualizarTotal() {
       let total = 0;
       document.querySelectorAll(".orc_valor").forEach((campo) => {
-        const val = parseFloat(campo.value.replace(",", "."));
+        const val = parseFloat((campo.value || "").replace(",", "."));
         if (!isNaN(val)) total += val;
       });
       document.getElementById("orc_total").textContent =
@@ -894,7 +1151,6 @@
     function imprimirSecao(idSecao) {
       const secao = document.getElementById(idSecao);
       if (!secao) return;
-      // Esconde todo o resto na impressão via classe
       document.querySelectorAll(".secao").forEach((s) => {
         s.classList.remove("somente-impressao");
       });
@@ -905,7 +1161,9 @@
 
     // ---- INICIALIZAÇÃO ----
     document.addEventListener("DOMContentLoaded", () => {
+      verificarEstadoLogin();
       carregarDentista();
+
       const hoje = new Date().toISOString().slice(0, 10);
       const rData = document.getElementById("receita_data");
       const aData = document.getElementById("atestado_data");

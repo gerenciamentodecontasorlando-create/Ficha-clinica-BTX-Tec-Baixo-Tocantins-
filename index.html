@@ -1,823 +1,919 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Ficha Clínica Digital • BTX-TEC</title>
+  <title>Ficha Clínica Digital - BTX-TEC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     :root {
       --bg: #020617;
-      --card: #0b1120;
-      --azul: #1d4ed8;
+      --card: #020617;
+      --azul1: #0f172a;
+      --azul2: #1d4ed8;
       --ciano: #22d3ee;
-      --borda: #1e293b;
+      --borda: #172554;
       --texto: #e5e7eb;
-      --muted: #9ca3af;
-      --radius: 12px;
+      --texto-suave: #9ca3af;
+      --accent: #38bdf8;
+      --danger: #f97373;
+      --ok: #4ade80;
+      --shadow: 0 10px 30px rgba(15,23,42,0.75);
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
     body {
-      background: radial-gradient(circle at top, #0f172a 0, #020617 45%, #000 100%);
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
       color: var(--texto);
       min-height: 100vh;
-      padding: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
     }
 
-    .app {
-      max-width: 960px;
-      margin: 0 auto;
+    .app-container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 24px;
+      background: linear-gradient(145deg, #020617, #020617);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      overflow: hidden;
     }
 
-    /* CABEÇALHO / HERO */
-    .hero {
-      background:
-        radial-gradient(circle at 15% 20%, rgba(34,211,238,0.25), transparent 55%),
-        radial-gradient(circle at 80% 80%, rgba(37,99,235,0.4), transparent 55%),
-        linear-gradient(135deg, #020617, #020617 40%, #020617 100%);
-      border-radius: 24px;
-      padding: 18px 18px 14px 18px;
-      border: 1px solid rgba(148,163,184,0.5);
-      box-shadow: 0 20px 50px rgba(15,23,42,0.85);
-      margin-bottom: 12px;
+    header {
+      padding: 16px 20px 10px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      background: radial-gradient(circle at left top, #1e293b, #020617);
     }
 
-    .hero-text h1 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .hero-text p {
-      font-size: 0.85rem;
-      color: var(--muted);
-    }
-
-    .hero-badge {
-      display: inline-flex;
+    .marca {
+      display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      background: rgba(15,23,42,0.9);
-      font-size: 0.75rem;
-      color: #e5e7eb;
-      margin-bottom: 4px;
+      gap: 10px;
     }
 
-    .hero-logo {
-      width: 70px;
-      height: 70px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background:
-        radial-gradient(circle at 30% 20%, rgba(34,211,238,0.8), transparent 55%),
-        radial-gradient(circle at 70% 80%, rgba(37,99,235,0.9), transparent 55%),
-        #020617;
-      box-shadow: 0 0 18px rgba(37,99,235,0.9);
+    .marca-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: radial-gradient(circle at 30% 20%, #22d3ee, #0f172a 55%, #020617);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5),
+        0 0 18px rgba(56, 189, 248, 0.7);
+    }
+
+    .marca-logo span {
+      font-size: 16px;
+      font-weight: 700;
+      color: #e5e7eb;
+      letter-spacing: 0.5px;
+    }
+
+    .marca-texto {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .marca-nome {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
       color: #e5e7eb;
     }
 
-    .hero-logo span {
-      font-weight: 700;
-      letter-spacing: 0.08em;
+    .marca-sub {
+      font-size: 12px;
+      color: var(--texto-suave);
     }
 
-    .hero-sub {
-      font-size: 0.75rem;
-      color: #9ca3af;
-      margin-top: 4px;
+    .header-info {
+      font-size: 11px;
+      color: var(--texto-suave);
+      text-align: right;
     }
 
-    /* CARD GERAL */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      padding: 8px 10px 10px;
+      background: #020617;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      border: 1px solid transparent;
+      background: rgba(15, 23, 42, 0.85);
+      color: var(--texto-suave);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: 0.18s ease;
+    }
+
+    .tab-btn span.icon {
+      font-size: 14px;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #1d4ed8, #22d3ee);
+      color: #f9fafb;
+      border-color: rgba(148, 163, 184, 0.3);
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7),
+        0 0 18px rgba(37, 99, 235, 0.8);
+    }
+
+    .tab-btn:hover:not(.active) {
+      border-color: rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.98);
+    }
+
+    .conteudo {
+      padding: 18px 18px 22px;
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .conteudo {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-info {
+        text-align: left;
+      }
+    }
+
     .card {
-      background: rgba(11,17,32,0.97);
-      border-radius: var(--radius);
-      padding: 14px 16px 16px 16px;
-      border: 1px solid rgba(30,64,175,0.7);
-      box-shadow: 0 16px 40px rgba(15,23,42,0.7);
-      margin-bottom: 10px;
+      background: radial-gradient(circle at top, #020617, #020617);
+      border-radius: 16px;
+      padding: 14px 14px 16px;
+      border: 1px solid rgba(51, 65, 85, 0.85);
+      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.1), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
     }
 
     .card h2 {
-      font-size: 1rem;
-      margin-bottom: 6px;
+      margin: 0 0 10px;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .subtext {
-      font-size: 0.75rem;
-      color: var(--muted);
+    .card h2 span.icon {
+      font-size: 19px;
+    }
+
+    .card p.descricao {
+      margin: 0 0 12px;
+      font-size: 13px;
+      color: var(--texto-suave);
+    }
+
+    .linha {
+      display: flex;
+      gap: 8px;
       margin-bottom: 8px;
+    }
+
+    .linha.col {
+      flex-direction: column;
+    }
+
+    .campo {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 13px;
     }
 
     label {
-      font-size: 0.8rem;
-      display: block;
-      margin-bottom: 3px;
+      font-size: 12px;
+      color: var(--texto-suave);
     }
 
-    input[type="text"],
-    input[type="date"],
-    input[type="number"],
-    input[type="tel"],
+    input,
     textarea {
-      width: 100%;
-      background: rgba(15,23,42,0.95);
-      border-radius: 8px;
-      border: 1px solid var(--borda);
-      color: var(--texto);
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 10px;
+      border: 1px solid rgba(51, 65, 85, 0.9);
       padding: 7px 9px;
-      font-size: 0.85rem;
-      margin-bottom: 8px;
-      outline: none;
+      color: var(--texto);
+      font-size: 13px;
+      resize: vertical;
+      min-height: 32px;
     }
 
-    input::placeholder,
-    textarea::placeholder {
-      color: #64748b;
+    textarea {
+      min-height: 60px;
     }
 
     input:focus,
     textarea:focus {
-      border-color: var(--ciano);
-      box-shadow: 0 0 0 1px rgba(34,211,238,0.6);
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
     }
 
-    textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .row {
+    .acoes {
       display: flex;
-      gap: 8px;
       flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
     }
 
-    .row > div {
-      flex: 1;
-      min-width: 140px;
-    }
-
-    .btn {
+    button.btn {
+      border-radius: 1000px;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      background: rgba(15, 23, 42, 1);
+      color: var(--texto);
+      font-size: 13px;
+      padding: 6px 12px;
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      padding: 7px 12px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      background: radial-gradient(circle at top, rgba(34,211,238,0.2), rgba(15,23,42,1));
-      color: var(--texto);
-      font-size: 0.8rem;
+      gap: 6px;
       cursor: pointer;
-      margin-top: 4px;
-      margin-right: 6px;
-      transition: all 0.12s ease;
+      transition: 0.18s ease;
+      white-space: nowrap;
     }
 
-    .btn:hover {
+    button.btn.primario {
+      background: linear-gradient(135deg, #1d4ed8, #22c55e);
+      border-color: rgba(34, 197, 94, 0.5);
+      color: #f9fafb;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7),
+        0 0 16px rgba(22, 163, 74, 0.85);
+    }
+
+    button.btn.destrutivo {
+      border-color: rgba(248, 113, 113, 0.6);
+      color: #fecaca;
+    }
+
+    button.btn:hover {
       transform: translateY(-1px);
-      border-color: var(--ciano);
-      box-shadow: 0 10px 24px rgba(15,23,42,0.8);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.8);
     }
 
-    .btn-sec {
-      background: rgba(15,23,42,1);
+    button.btn.destrutivo:hover {
+      background: rgba(127, 29, 29, 0.95);
     }
 
-    /* ABAS */
-    .tabs {
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 999px;
+      padding: 3px 9px;
+      font-size: 11px;
+      color: var(--texto-suave);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      margin-bottom: 6px;
+    }
+
+    .pill span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--ok);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
+    }
+
+    .atalhos-meds {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    .tab-btn {
-      padding: 5px 12px;
+    .atalho-pill {
+      font-size: 11px;
+      padding: 4px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.5);
-      background: rgba(15,23,42,0.9);
-      font-size: 0.8rem;
-      color: var(--texto);
+      border: 1px solid rgba(51, 65, 85, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--texto-suave);
       cursor: pointer;
-      transition: all 0.12s ease;
+      white-space: nowrap;
+      transition: 0.15s ease;
     }
 
-    .tab-btn.active {
-      background: linear-gradient(135deg, var(--azul), var(--ciano));
-      color: #020617;
-      border-color: transparent;
-      font-weight: 600;
+    .atalho-pill:hover {
+      background: rgba(30, 64, 175, 0.9);
+      color: #e5e7eb;
+      border-color: rgba(37, 99, 235, 0.9);
     }
 
-    .tab-pane {
+    .tabela-orc {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 4px;
+      font-size: 12px;
+    }
+
+    .tabela-orc th,
+    .tabela-orc td {
+      border-bottom: 1px solid rgba(51, 65, 85, 0.9);
+      padding: 4px 4px;
+    }
+
+    .tabela-orc th {
+      text-align: left;
+      font-weight: 500;
+      color: var(--texto-suave);
+    }
+
+    .tabela-orc input {
+      font-size: 12px;
+      padding: 4px 6px;
+    }
+
+    .total-orc {
+      margin-top: 8px;
+      font-size: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-total {
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.2);
+      border: 1px solid rgba(34, 197, 94, 0.75);
+      color: #bbf7d0;
+      font-size: 12px;
+    }
+
+    .secao {
       display: none;
     }
 
-    .tab-pane.active {
+    .secao.ativa {
       display: block;
     }
 
-    fieldset {
-      border-radius: 10px;
-      border: 1px solid rgba(30,64,175,0.7);
-      padding: 10px 12px 12px 12px;
-      margin-bottom: 10px;
-    }
-
-    legend {
-      padding: 0 6px;
-      font-size: 0.8rem;
-      color: #bfdbfe;
-    }
-
-    .documento {
-      background: radial-gradient(circle at top, rgba(15,23,42,0.98), #020617 80%);
-      border-radius: 10px;
-      border: 1px solid rgba(148,163,184,0.5);
-      padding: 10px 12px 12px 12px;
-    }
-
-    .doc-header {
-      text-align: center;
-      margin-bottom: 8px;
-    }
-
-    .doc-titulo {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .doc-profissional {
-      font-size: 0.8rem;
-      color: #cbd5f5;
-    }
-
-    .doc-endereco {
-      font-size: 0.75rem;
-      color: #9ca3af;
-    }
-
-    .linha-assinatura {
-      margin-top: 18px;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #9ca3af;
-    }
-
-    .linha-assinatura span {
-      display: inline-block;
-      min-width: 180px;
-      border-top: 1px solid #64748b;
-      padding-top: 4px;
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .chip {
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.7);
-      padding: 4px 8px;
-      background: rgba(15,23,42,0.9);
-      font-size: 0.72rem;
-      cursor: pointer;
-    }
-
-    .chip:hover {
-      border-color: var(--ciano);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 6px;
-      font-size: 0.8rem;
-    }
-
-    th, td {
-      border: 1px solid #1f2937;
-      padding: 6px 8px;
-    }
-
-    th {
-      background: rgba(15,23,42,0.95);
-      text-align: left;
-      color: #cbd5f5;
-    }
-
-    tfoot td {
-      font-weight: 600;
-    }
-
-    .no-print {
-      /* usado para esconder na impressão */
-    }
-
+    /* Impressão: mostra só a seção escolhida */
     @media print {
       body {
-        background: #ffffff;
-        padding: 0;
+        background: #fff;
       }
-
-      .hero,
-      .card-config,
+      .app-container,
+      header,
       .tabs,
-      .no-print {
+      .conteudo {
+        all: unset;
+        display: block;
+      }
+      header,
+      .tabs {
         display: none !important;
       }
-
-      /* Só imprime a aba escolhida */
-      body[data-print="receituario"] #pane-receituario,
-      body[data-print="atestado"] #pane-atestado,
-      body[data-print="orcamento"] #pane-orcamento {
+      .card {
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+      }
+      .somente-impressao {
         display: block !important;
       }
-
-      body[data-print="receituario"] *:not(#pane-receituario):not(#pane-receituario *),
-      body[data-print="atestado"] *:not(#pane-atestado):not(#pane-atestado *),
-      body[data-print="orcamento"] *:not(#pane-orcamento):not(#pane-orcamento *) {
+      .nao-imprimir {
         display: none !important;
-      }
-
-      .documento {
-        background: #ffffff;
-        color: #000000;
-        border-color: #000000;
-        box-shadow: none;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero {
-        padding: 14px;
-      }
-      .hero-text h1 {
-        font-size: 1.1rem;
-      }
-      .hero-logo {
-        width: 60px;
-        height: 60px;
-        font-size: 1.2rem;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="app">
-    <!-- HERO TOPO -->
-    <header class="hero">
-      <div class="hero-text">
-        <div class="hero-badge">
-          🌀 <span>BTX-TEC • Baixo Tocantins</span>
+  <div class="app-container nao-imprimir">
+    <header>
+      <div class="marca">
+        <div class="marca-logo">
+          <span>BTX</span>
         </div>
-        <h1>Ficha Clínica Digital</h1>
-        <p>Prontuário, receituário, atestado e orçamento odontológico em um só lugar.</p>
-        <div class="hero-sub">Marca discreta, dados do dentista configuráveis, pronto para web e app Android.</div>
+        <div class="marca-texto">
+          <div class="marca-nome">BTX-TEC</div>
+          <div class="marca-sub">Baixo Tocantins • Ficha Clínica Digital</div>
+        </div>
       </div>
-      <div class="hero-logo">
-        <!-- hexágono simplificado com BTX -->
-        <span>BTX</span>
+      <div class="header-info">
+        <div>Prontuário, receituário, atestado e orçamento em um só lugar.</div>
+        <div>Marca discreta • Dados do dentista configuráveis • Uso livre entre
+          dentistas.</div>
       </div>
     </header>
 
-    <!-- CONFIGURAÇÃO DO DENTISTA -->
-    <section class="card card-config">
-      <h2>Dados do dentista</h2>
-      <p class="subtext">Preencha uma vez. Esses dados vão para o receituário, atestado e orçamento. Não fica seu nome fixo no código.</p>
+    <nav class="tabs">
+      <button class="tab-btn active" data-alvo="secao-dentista">
+        <span class="icon">👤</span> Dentista
+      </button>
+      <button class="tab-btn" data-alvo="secao-ficha">
+        <span class="icon">📋</span> Ficha Clínica
+      </button>
+      <button class="tab-btn" data-alvo="secao-receita">
+        <span class="icon">💊</span> Receituário
+      </button>
+      <button class="tab-btn" data-alvo="secao-atestado">
+        <span class="icon">📝</span> Atestado
+      </button>
+      <button class="tab-btn" data-alvo="secao-orcamento">
+        <span class="icon">💰</span> Orçamentos
+      </button>
+    </nav>
 
-      <div class="row">
-        <div>
-          <label for="dentista_nome">Nome do dentista</label>
-          <input type="text" id="dentista_nome" placeholder="Seu nome completo" />
-        </div>
-        <div>
-          <label for="dentista_registro">CRO</label>
-          <input type="text" id="dentista_registro" placeholder="CRO-PA xxxx" />
-        </div>
-      </div>
+    <main class="conteudo">
+      <!-- COLUNA ESQUERDA -->
+      <section>
+        <!-- DADOS DO DENTISTA -->
+        <div class="card secao ativa" id="secao-dentista">
+          <h2><span class="icon">👤</span> Dados do dentista</h2>
+          <p class="descricao">
+            Preencha uma vez. Esses dados irão para o cabeçalho do receituário,
+            atestado e orçamento. Nada fica fixo com seu nome no código.
+          </p>
 
-      <div class="row">
-        <div>
-          <label for="dentista_especialidade">Especialidade</label>
-          <input type="text" id="dentista_especialidade" placeholder="Cirurgião-Dentista / Especialidade" />
-        </div>
-        <div>
-          <label for="dentista_telefone">Telefone / WhatsApp</label>
-          <input type="tel" id="dentista_telefone" placeholder="(xx) xxxxx-xxxx" />
-        </div>
-      </div>
-
-      <label for="dentista_endereco">Endereço profissional</label>
-      <input type="text" id="dentista_endereco" placeholder="Endereço do consultório" />
-
-      <button class="btn" id="btnSalvarDentista">Salvar dados do dentista</button>
-    </section>
-
-    <!-- ABAS -->
-    <section class="card">
-      <nav class="tabs no-print">
-        <button class="tab-btn active" data-tab="ficha">Ficha Clínica</button>
-        <button class="tab-btn" data-tab="receituario">Receituário</button>
-        <button class="tab-btn" data-tab="atestado">Atestado</button>
-        <button class="tab-btn" data-tab="orcamento">Orçamentos</button>
-      </nav>
-
-      <!-- CONTEÚDO DAS ABAS -->
-      <!-- FICHA CLÍNICA -->
-      <div class="tab-pane active" id="pane-ficha">
-        <h2>Ficha Clínica do Paciente</h2>
-        <p class="subtext">Campos livres para você escrever no formato SWAP/SOAP do jeito que estiver acostumado.</p>
-
-        <fieldset>
-          <legend>Dados de identificação</legend>
-
-          <div class="row">
-            <div>
-              <label for="fc_nome">Nome completo</label>
-              <input type="text" id="fc_nome" />
-            </div>
-            <div>
-              <label for="fc_data_nascimento">Data de nascimento</label>
-              <input type="date" id="fc_data_nascimento" />
-            </div>
-            <div>
-              <label for="fc_idade">Idade</label>
-              <input type="number" id="fc_idade" />
+          <div class="linha">
+            <div class="campo">
+              <label for="dentista_nome">Nome do dentista</label>
+              <input type="text" id="dentista_nome" />
             </div>
           </div>
 
-          <label for="fc_endereco">Endereço</label>
-          <input type="text" id="fc_endereco" />
-
-          <div class="row">
-            <div>
-              <label for="fc_telefone">Telefone</label>
-              <input type="tel" id="fc_telefone" />
+          <div class="linha">
+            <div class="campo">
+              <label for="dentista_cro">CRO</label>
+              <input type="text" id="dentista_cro" />
             </div>
-            <div>
-              <label for="fc_nome_mae">Nome da mãe</label>
-              <input type="text" id="fc_nome_mae" />
-            </div>
-            <div>
-              <label for="fc_nome_pai">Nome do pai</label>
-              <input type="text" id="fc_nome_pai" />
+            <div class="campo">
+              <label for="dentista_especialidade">Especialidade</label>
+              <input type="text" id="dentista_especialidade" />
             </div>
           </div>
-        </fieldset>
 
-        <fieldset>
-          <legend>Queixa principal</legend>
-          <textarea id="fc_queixa_principal" rows="3"
-            placeholder="Espaço livre para descrever a queixa principal (QP)..."></textarea>
-        </fieldset>
-
-        <fieldset>
-          <legend>História clínica</legend>
-          <textarea id="fc_historia" rows="6"
-            placeholder="HDA, antecedentes, história familiar, hábitos, medicações, alergias, etc."></textarea>
-        </fieldset>
-
-        <fieldset>
-          <legend>Procedimentos e valores</legend>
-          <label for="fc_procedimentos">Procedimentos realizados / anotações clínicas</label>
-          <textarea id="fc_procedimentos" rows="4"
-            placeholder="Descreva procedimentos realizados, condutas, regiões atendidas..."></textarea>
-
-          <label for="fc_valores">Valores pagos / datas</label>
-          <textarea id="fc_valores" rows="3"
-            placeholder="Valores, forma de pagamento, datas..."></textarea>
-        </fieldset>
-
-        <button class="btn" id="btnSalvarFicha">Salvar ficha (local)</button>
-      </div>
-
-      <!-- RECEITUÁRIO -->
-      <div class="tab-pane" id="pane-receituario">
-        <h2>Receituário odontológico</h2>
-        <p class="subtext">Os dados do cabeçalho vêm da configuração do dentista. Use os atalhos ou escreva manualmente.</p>
-
-        <div class="documento">
-          <div class="doc-header">
-            <div class="doc-titulo">Receituário Odontológico</div>
-            <div id="rx_profissional" class="doc-profissional">Configure seus dados acima.</div>
-            <div id="rx_endereco" class="doc-endereco"></div>
+          <div class="linha">
+            <div class="campo">
+              <label for="dentista_telefone">Telefone / WhatsApp</label>
+              <input type="text" id="dentista_telefone" />
+            </div>
+            <div class="campo">
+              <label for="dentista_endereco">Endereço profissional</label>
+              <input type="text" id="dentista_endereco" />
+            </div>
           </div>
 
-          <div class="doc-corpo">
-            <div class="row">
-              <div>
-                <label for="rx_paciente">Paciente</label>
-                <input type="text" id="rx_paciente" />
-              </div>
-              <div>
-                <label for="rx_data">Data</label>
-                <input type="date" id="rx_data" />
-              </div>
-            </div>
-
-            <label>Atalhos de medicamentos</label>
-            <div class="chip-group no-print">
-              <button type="button" class="chip" data-rx="Paracetamol 750 mg VO, 1 comprimido de 8/8h por 3 dias.">
-                Paracetamol 750 mg
-              </button>
-              <button type="button" class="chip" data-rx="Dipirona 500 mg VO, 1 comprimido de 6/6h se dor ou febre.">
-                Dipirona 500 mg
-              </button>
-              <button type="button" class="chip" data-rx="Ibuprofeno 600 mg VO, 1 comprimido de 8/8h por 5 dias.">
-                Ibuprofeno 600 mg
-              </button>
-              <button type="button" class="chip" data-rx="Amoxicilina 500 mg VO, 1 cápsula de 8/8h por 7 dias.">
-                Amoxicilina 500 mg
-              </button>
-              <button type="button" class="chip"
-                data-rx="Amoxicilina 875 mg + clavulanato 125 mg VO, 1 comprimido de 12/12h por 7 dias.">
-                Amox + Clav
-              </button>
-              <button type="button" class="chip" data-rx="Azitromicina 500 mg VO, 1 comprimido ao dia por 3 dias.">
-                Azitromicina 500 mg
-              </button>
-            </div>
-
-            <label for="rx_texto">Prescrição</label>
-            <textarea id="rx_texto" rows="7"
-              placeholder="Escreva aqui a prescrição completa, com posologia e orientações."></textarea>
-
-            <div class="linha-assinatura">
-              <span id="rx_assinatura">______________________________</span>
-            </div>
+          <div class="acoes">
+            <button class="btn primario" id="btnSalvarDentista">
+              💾 Salvar dados do dentista
+            </button>
+            <button class="btn destrutivo" id="btnLimparDentista">
+              🧹 Limpar dados
+            </button>
           </div>
         </div>
 
-        <div class="no-print" style="margin-top:8px;">
-          <button class="btn" onclick="imprimirSecao('receituario')">Imprimir</button>
-          <button class="btn btn-sec" onclick="imprimirSecao('receituario')">Salvar em PDF</button>
-        </div>
-      </div>
+        <!-- FICHA CLÍNICA -->
+        <div class="card secao" id="secao-ficha">
+          <h2><span class="icon">📋</span> Ficha Clínica do Paciente</h2>
+          <p class="descricao">
+            Campos livres para anamnese e evolução no formato que você já usa
+            no consultório.
+          </p>
 
-      <!-- ATESTADO -->
-      <div class="tab-pane" id="pane-atestado">
-        <h2>Atestado odontológico</h2>
-        <p class="subtext">Texto livre para afastamento, justificativa escolar ou trabalhista.</p>
-
-        <div class="documento">
-          <div class="doc-header">
-            <div class="doc-titulo">Atestado Odontológico</div>
-            <div id="at_profissional" class="doc-profissional">Configure seus dados acima.</div>
-            <div id="at_endereco" class="doc-endereco"></div>
-          </div>
-
-          <div class="doc-corpo">
-            <div class="row">
-              <div>
-                <label for="at_paciente">Paciente</label>
-                <input type="text" id="at_paciente" />
-              </div>
-              <div>
-                <label for="at_data">Data</label>
-                <input type="date" id="at_data" />
-              </div>
-            </div>
-
-            <label for="at_texto">Texto do atestado</label>
-            <textarea id="at_texto" rows="6"
-              placeholder="Atesto, para os devidos fins, que o(a) paciente acima esteve sob meus cuidados odontológicos nesta data, necessitando de afastamento de ____ horas/dia(s)."></textarea>
-
-            <div class="linha-assinatura">
-              <span id="at_assinatura">______________________________</span>
+          <div class="linha">
+            <div class="campo">
+              <label for="paciente_nome">Nome completo</label>
+              <input type="text" id="paciente_nome" />
             </div>
           </div>
-        </div>
 
-        <div class="no-print" style="margin-top:8px;">
-          <button class="btn" onclick="imprimirSecao('atestado')">Imprimir</button>
-          <button class="btn btn-sec" onclick="imprimirSecao('atestado')">Salvar em PDF</button>
-        </div>
-      </div>
-
-      <!-- ORÇAMENTOS -->
-      <div class="tab-pane" id="pane-orcamento">
-        <h2>Orçamento odontológico</h2>
-        <p class="subtext">Preencha os procedimentos e valores. O total é calculado automaticamente.</p>
-
-        <div class="documento">
-          <div class="doc-header">
-            <div class="doc-titulo">Orçamento Odontológico</div>
-            <div id="orc_profissional" class="doc-profissional">Configure seus dados acima.</div>
-            <div id="orc_endereco" class="doc-endereco"></div>
-          </div>
-
-          <div class="doc-corpo">
-            <label for="orc_paciente">Paciente</label>
-            <input type="text" id="orc_paciente" />
-
-            <table>
-              <thead>
-                <tr>
-                  <th>Procedimento</th>
-                  <th>Valor (R$)</th>
-                </tr>
-              </thead>
-              <tbody id="orc_tbody">
-                <tr>
-                  <td><input type="text" class="orc_proc" placeholder="Ex: Restauração em resina..."></td>
-                  <td><input type="number" step="0.01" class="orc_valor" oninput="atualizarTotal()"></td>
-                </tr>
-                <tr>
-                  <td><input type="text" class="orc_proc" placeholder="Ex: Exodontia..."></td>
-                  <td><input type="number" step="0.01" class="orc_valor" oninput="atualizarTotal()"></td>
-                </tr>
-                <tr>
-                  <td><input type="text" class="orc_proc"></td>
-                  <td><input type="number" step="0.01" class="orc_valor" oninput="atualizarTotal()"></td>
-                </tr>
-                <tr>
-                  <td><input type="text" class="orc_proc"></td>
-                  <td><input type="number" step="0.01" class="orc_valor" oninput="atualizarTotal()"></td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td>Total</td>
-                  <td id="orc_total">R$ 0,00</td>
-                </tr>
-              </tfoot>
-            </table>
-
-            <div class="linha-assinatura">
-              <span id="orc_assinatura">______________________________</span>
+          <div class="linha">
+            <div class="campo">
+              <label for="paciente_nascimento">Data de nascimento</label>
+              <input type="date" id="paciente_nascimento" />
+            </div>
+            <div class="campo">
+              <label for="paciente_idade">Idade</label>
+              <input type="text" id="paciente_idade" />
             </div>
           </div>
+
+          <div class="linha">
+            <div class="campo">
+              <label for="paciente_endereco">Endereço</label>
+              <input type="text" id="paciente_endereco" />
+            </div>
+          </div>
+
+          <div class="linha">
+            <div class="campo">
+              <label for="paciente_telefone">Telefone</label>
+              <input type="text" id="paciente_telefone" />
+            </div>
+            <div class="campo">
+              <label for="paciente_mae">Nome da mãe</label>
+              <input type="text" id="paciente_mae" />
+            </div>
+          </div>
+
+          <div class="linha">
+            <div class="campo">
+              <label for="paciente_pai">Nome do pai</label>
+              <input type="text" id="paciente_pai" />
+            </div>
+          </div>
+
+          <div class="linha col">
+            <div class="campo">
+              <label for="queixa">Queixa principal</label>
+              <textarea id="queixa"></textarea>
+            </div>
+          </div>
+
+          <div class="linha col">
+            <div class="campo">
+              <label for="historia">História clínica</label>
+              <textarea id="historia"></textarea>
+            </div>
+          </div>
+
+          <div class="linha col">
+            <div class="campo">
+              <label for="procedimentos">Procedimentos / anotações clínicas</label>
+              <textarea id="procedimentos"></textarea>
+            </div>
+          </div>
+
+          <div class="linha col">
+            <div class="campo">
+              <label for="valores">Valores pagos / datas</label>
+              <textarea id="valores"></textarea>
+            </div>
+          </div>
+
+          <div class="acoes">
+            <button class="btn primario" id="btnSalvarFicha">
+              💾 Salvar ficha (local)
+            </button>
+            <button class="btn" onclick="imprimirSecao('secao-ficha')">
+              🖨️ Imprimir / PDF
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- COLUNA DIREITA -->
+      <section>
+        <!-- RECEITUÁRIO -->
+        <div class="card secao" id="secao-receita">
+          <h2><span class="icon">💊</span> Receituário odontológico</h2>
+          <p class="descricao">
+            Cabeçalho automático com seus dados. Use os atalhos ou digite a
+            prescrição manualmente.
+          </p>
+
+          <div class="pill">
+            <span class="dot"></span>
+            Dados do dentista vêm da aba "Dentista".
+          </div>
+
+          <div class="linha">
+            <div class="campo">
+              <label for="receita_paciente">Paciente</label>
+              <input type="text" id="receita_paciente" />
+            </div>
+            <div class="campo">
+              <label for="receita_data">Data</label>
+              <input type="date" id="receita_data" />
+            </div>
+          </div>
+
+          <label>Atalhos de medicamentos</label>
+          <div class="atalhos-meds">
+            <button class="atalho-pill" data-med="Paracetamol 750 mg, tomar 1 comprimido de 8/8h por 3 dias.">
+              Paracetamol 750 mg
+            </button>
+            <button class="atalho-pill" data-med="Dipirona 500 mg, tomar 1 comprimido de 6/6h se dor ou febre.">
+              Dipirona 500 mg
+            </button>
+            <button class="atalho-pill" data-med="Ibuprofeno 600 mg, tomar 1 comprimido de 8/8h por 5 dias.">
+              Ibuprofeno 600 mg
+            </button>
+            <button class="atalho-pill" data-med="Amoxicilina 500 mg, tomar 1 cápsula de 8/8h por 7 dias.">
+              Amoxicilina 500 mg
+            </button>
+            <button class="atalho-pill" data-med="Amoxicilina + Clavulanato 875/125 mg, tomar 1 comprimido de 12/12h por 7 dias.">
+              Amox + Clav
+            </button>
+            <button class="atalho-pill" data-med="Azitromicina 500 mg, tomar 1 comprimido ao dia por 3 dias.">
+              Azitromicina 500 mg
+            </button>
+          </div>
+
+          <div class="linha col">
+            <div class="campo">
+              <label for="receita_texto">Prescrição</label>
+              <textarea id="receita_texto"></textarea>
+            </div>
+          </div>
+
+          <div class="acoes">
+            <button class="btn primario" onclick="imprimirSecao('secao-receita')">
+              🖨️ Imprimir / PDF
+            </button>
+          </div>
         </div>
 
-        <div class="no-print" style="margin-top:8px;">
-          <button class="btn" onclick="imprimirSecao('orcamento')">Imprimir</button>
-          <button class="btn btn-sec" onclick="imprimirSecao('orcamento')">Salvar em PDF</button>
+        <!-- ATESTADO -->
+        <div class="card secao" id="secao-atestado">
+          <h2><span class="icon">📝</span> Atestado odontológico</h2>
+          <p class="descricao">
+            Use texto livre para afastamento, escola ou trabalho. Cabeçalho
+            usa os dados do dentista.
+          </p>
+
+          <div class="pill">
+            <span class="dot"></span>
+            Os dados de cabeçalho virão da aba "Dentista".
+          </div>
+
+          <div class="linha">
+            <div class="campo">
+              <label for="atestado_paciente">Paciente</label>
+              <input type="text" id="atestado_paciente" />
+            </div>
+            <div class="campo">
+              <label for="atestado_data">Data</label>
+              <input type="date" id="atestado_data" />
+            </div>
+          </div>
+
+          <div class="linha col">
+            <div class="campo">
+              <label for="atestado_texto">Texto do atestado</label>
+              <textarea id="atestado_texto"></textarea>
+            </div>
+          </div>
+
+          <div class="acoes">
+            <button class="btn primario" onclick="imprimirSecao('secao-atestado')">
+              🖨️ Imprimir / PDF
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+
+        <!-- ORÇAMENTO -->
+        <div class="card secao" id="secao-orcamento">
+          <h2><span class="icon">💰</span> Orçamento odontológico</h2>
+          <p class="descricao">
+            Preencha os procedimentos e valores. O total é calculado
+            automaticamente.
+          </p>
+
+          <div class="pill">
+            <span class="dot"></span>
+            Cabeçalho com dados do dentista, se desejar imprimir.
+          </div>
+
+          <div class="linha">
+            <div class="campo">
+              <label for="orc_paciente">Paciente</label>
+              <input type="text" id="orc_paciente" />
+            </div>
+            <div class="campo">
+              <label for="orc_data">Data</label>
+              <input type="date" id="orc_data" />
+            </div>
+          </div>
+
+          <table class="tabela-orc">
+            <thead>
+              <tr>
+                <th style="width: 60%">Procedimento</th>
+                <th style="width: 40%">Valor (R$)</th>
+              </tr>
+            </thead>
+            <tbody id="orc_tbody">
+              <tr>
+                <td><input type="text" class="orc_proc" /></td>
+                <td><input type="number" step="0.01" class="orc_valor" /></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="orc_proc" /></td>
+                <td><input type="number" step="0.01" class="orc_valor" /></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="orc_proc" /></td>
+                <td><input type="number" step="0.01" class="orc_valor" /></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="orc_proc" /></td>
+                <td><input type="number" step="0.01" class="orc_valor" /></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="orc_proc" /></td>
+                <td><input type="number" step="0.01" class="orc_valor" /></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="total-orc">
+            <span>Total</span>
+            <span class="badge-total" id="orc_total">R$ 0,00</span>
+          </div>
+
+          <div class="acoes">
+            <button class="btn" id="btnAddLinha">
+              ➕ Adicionar linha
+            </button>
+            <button class="btn primario" onclick="imprimirSecao('secao-orcamento')">
+              🖨️ Imprimir / PDF
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script>
-    // ABAS
-    document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const tab = btn.dataset.tab;
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
-
-        btn.classList.add("active");
-        document.getElementById("pane-" + tab).classList.add("active");
+    // ---- TROCA DE ABAS ----
+    function ativarAba(id) {
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.alvo === id);
       });
-    });
-
-    // DADOS DO DENTISTA
-    function carregarDentistaNaUI(dados) {
-      const nome = dados.nome || "";
-      const cro = dados.registro || "";
-      const esp = dados.especialidade || "";
-      const end = dados.endereco || "";
-      const tel = dados.telefone || "";
-
-      if (!document.getElementById("dentista_nome").value) document.getElementById("dentista_nome").value = nome;
-      if (!document.getElementById("dentista_registro").value) document.getElementById("dentista_registro").value = cro;
-      if (!document.getElementById("dentista_especialidade").value) document.getElementById("dentista_especialidade").value = esp;
-      if (!document.getElementById("dentista_telefone").value) document.getElementById("dentista_telefone").value = tel;
-      if (!document.getElementById("dentista_endereco").value) document.getElementById("dentista_endereco").value = end;
-
-      const linhaProf = [nome, cro].filter(Boolean).join(" • ");
-      const linhaEnd = [esp, end, tel].filter(Boolean).join(" • ");
-
-      const mapeamentos = [
-        ["rx_profissional", "rx_endereco", "rx_assinatura"],
-        ["at_profissional", "at_endereco", "at_assinatura"],
-        ["orc_profissional", "orc_endereco", "orc_assinatura"]
-      ];
-
-      mapeamentos.forEach(([idP, idE, idA]) => {
-        const elP = document.getElementById(idP);
-        const elE = document.getElementById(idE);
-        const elA = document.getElementById(idA);
-        if (elP) elP.textContent = linhaProf || "Configure seus dados acima.";
-        if (elE) elE.textContent = linhaEnd;
-        if (elA && nome) elA.textContent = `${nome} • ${cro}`.trim();
+      document.querySelectorAll(".secao").forEach((secao) => {
+        secao.classList.toggle("ativa", secao.id === id);
       });
     }
 
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.addEventListener("click", () => ativarAba(btn.dataset.alvo));
+    });
+
+    // ---- LOCALSTORAGE DENTISTA ----
+    const camposDentista = [
+      "dentista_nome",
+      "dentista_cro",
+      "dentista_especialidade",
+      "dentista_telefone",
+      "dentista_endereco",
+    ];
+
     function carregarDentista() {
-      const dados = JSON.parse(localStorage.getItem("dadosDentista") || "{}");
-      carregarDentistaNaUI(dados);
+      camposDentista.forEach((id) => {
+        const salvo = localStorage.getItem("btx_dentista_" + id);
+        if (salvo) {
+          const campo = document.getElementById(id);
+          if (campo) campo.value = salvo;
+        }
+      });
     }
 
     function salvarDentista() {
-      const dados = {
-        nome: document.getElementById("dentista_nome").value.trim(),
-        registro: document.getElementById("dentista_registro").value.trim(),
-        especialidade: document.getElementById("dentista_especialidade").value.trim(),
-        endereco: document.getElementById("dentista_endereco").value.trim(),
-        telefone: document.getElementById("dentista_telefone").value.trim()
-      };
-      localStorage.setItem("dadosDentista", JSON.stringify(dados));
-      alert("Dados do dentista salvos com sucesso.");
-      carregarDentistaNaUI(dados);
-    }
-
-    // SALVAR FICHA (LOCAL)
-    function salvarFicha() {
-      const ficha = {
-        nome: document.getElementById("fc_nome").value,
-        dataNascimento: document.getElementById("fc_data_nascimento").value,
-        idade: document.getElementById("fc_idade").value,
-        endereco: document.getElementById("fc_endereco").value,
-        telefone: document.getElementById("fc_telefone").value,
-        mae: document.getElementById("fc_nome_mae").value,
-        pai: document.getElementById("fc_nome_pai").value,
-        queixa: document.getElementById("fc_queixa_principal").value,
-        historia: document.getElementById("fc_historia").value,
-        procedimentos: document.getElementById("fc_procedimentos").value,
-        valores: document.getElementById("fc_valores").value,
-        dataHora: new Date().toISOString()
-      };
-      const lista = JSON.parse(localStorage.getItem("fichasPacientes") || "[]");
-      lista.push(ficha);
-      localStorage.setItem("fichasPacientes", JSON.stringify(lista));
-      alert("Ficha clínica salva localmente neste dispositivo.");
-    }
-
-    // CHIPS DE MEDICAMENTO
-    document.addEventListener("click", (e) => {
-      if (e.target.classList.contains("chip")) {
-        const texto = e.target.getAttribute("data-rx") || "";
-        const Campo = document.getElementById("rx_texto");
-        if (Campo) {
-          const atual = Campo.value.trim();
-          Campo.value = (atual ? atual + "\n" : "") + texto;
+      camposDentista.forEach((id) => {
+        const campo = document.getElementById(id);
+        if (campo) {
+          localStorage.setItem("btx_dentista_" + id, campo.value.trim());
         }
-      }
+      });
+      alert("Dados do dentista salvos neste dispositivo.");
+    }
+
+    function limparDentista() {
+      if (!confirm("Apagar todos os dados do dentista neste dispositivo?"))
+        return;
+      camposDentista.forEach((id) => {
+        localStorage.removeItem("btx_dentista_" + id);
+        const campo = document.getElementById(id);
+        if (campo) campo.value = "";
+      });
+    }
+
+    document.getElementById("btnSalvarDentista").addEventListener("click", salvarDentista);
+    document.getElementById("btnLimparDentista").addEventListener("click", limparDentista);
+
+    // ---- SALVAR FICHA (OPCIONAL: localStorage simples) ----
+    function salvarFicha() {
+      const dados = {
+        nome: document.getElementById("paciente_nome").value,
+        nascimento: document.getElementById("paciente_nascimento").value,
+        idade: document.getElementById("paciente_idade").value,
+        endereco: document.getElementById("paciente_endereco").value,
+        tel: document.getElementById("paciente_telefone").value,
+        mae: document.getElementById("paciente_mae").value,
+        pai: document.getElementById("paciente_pai").value,
+        queixa: document.getElementById("queixa").value,
+        historia: document.getElementById("historia").value,
+        procedimentos: document.getElementById("procedimentos").value,
+        valores: document.getElementById("valores").value,
+      };
+      localStorage.setItem("btx_ficha_ultima", JSON.stringify(dados));
+      alert("Ficha salva localmente (última ficha).");
+    }
+    document.getElementById("btnSalvarFicha").addEventListener("click", salvarFicha);
+
+    // ---- ATALHOS DE MEDICAÇÃO ----
+    document.querySelectorAll(".atalho-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const texto = btn.dataset.med || "";
+        const campo = document.getElementById("receita_texto");
+        if (!campo) return;
+        campo.value = (campo.value + "\n" + texto).trim();
+      });
     });
 
-    // TOTAL ORÇAMENTO
+    // ---- ORÇAMENTO: SOMA AUTOMÁTICA ----
     function atualizarTotal() {
-      const campos = document.querySelectorAll(".orc_valor");
       let total = 0;
-      campos.forEach(c => {
-        const v = parseFloat(c.value.replace(",", "."));
-        if (!isNaN(v)) total += v;
+      document.querySelectorAll(".orc_valor").forEach((campo) => {
+        const val = parseFloat(campo.value.replace(",", "."));
+        if (!isNaN(val)) total += val;
       });
-      document.getElementById("orc_total").textContent = "R$ " + total.toFixed(2).replace(".", ",");
+      document.getElementById("orc_total").textContent =
+        "R$ " + total.toFixed(2).replace(".", ",");
     }
 
-    // IMPRESSÃO (papel ou PDF)
-    function imprimirSecao(secao) {
-      document.body.setAttribute("data-print", secao);
+    function adicionarLinha() {
+      const tbody = document.getElementById("orc_tbody");
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td><input type="text" class="orc_proc" /></td>
+        <td><input type="number" step="0.01" class="orc_valor" /></td>
+      `;
+      tbody.appendChild(tr);
+      tr.querySelector(".orc_valor").addEventListener("input", atualizarTotal);
+    }
+
+    document.getElementById("btnAddLinha").addEventListener("click", adicionarLinha);
+    document.querySelectorAll(".orc_valor").forEach((campo) => {
+      campo.addEventListener("input", atualizarTotal);
+    });
+
+    // ---- IMPRESSÃO / PDF DE UMA SEÇÃO ----
+    function imprimirSecao(idSecao) {
+      const secao = document.getElementById(idSecao);
+      if (!secao) return;
+      // Esconde todo o resto na impressão via classe
+      document.querySelectorAll(".secao").forEach((s) => {
+        s.classList.remove("somente-impressao");
+      });
+      secao.classList.add("somente-impressao");
       window.print();
-      document.body.removeAttribute("data-print");
     }
+    window.imprimirSecao = imprimirSecao;
 
-    // INICIALIZAÇÃO
+    // ---- INICIALIZAÇÃO ----
     document.addEventListener("DOMContentLoaded", () => {
       carregarDentista();
-
-      const btnDentista = document.getElementById("btnSalvarDentista");
-      if (btnDentista) btnDentista.addEventListener("click", salvarDentista);
-
-      const btnFicha = document.getElementById("btnSalvarFicha");
-      if (btnFicha) btnFicha.addEventListener("click", salvarFicha);
-
       const hoje = new Date().toISOString().slice(0, 10);
-      const rxData = document.getElementById("rx_data");
-      const atData = document.getElementById("at_data");
-      if (rxData && !rxData.value) rxData.value = hoje;
-      if (atData && !atData.value) atData.value = hoje;
+      const rData = document.getElementById("receita_data");
+      const aData = document.getElementById("atestado_data");
+      const oData = document.getElementById("orc_data");
+      if (rData && !rData.value) rData.value = hoje;
+      if (aData && !aData.value) aData.value = hoje;
+      if (oData && !oData.value) oData.value = hoje;
     });
-
-    // Deixar funções globais para os botões inline
-    window.atualizarTotal = atualizarTotal;
-    window.imprimirSecao = imprimirSecao;
   </script>
 </body>
 </html>

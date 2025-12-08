@@ -2,9 +2,8 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Ficha Clínica Digital - BTX-TEC</title>
+  <title>BTX-Tech | App Clínico Simples</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <style>
     :root {
       --bg: #020617;
@@ -12,13 +11,11 @@
       --azul1: #0f172a;
       --azul2: #1d4ed8;
       --ciano: #22d3ee;
-      --borda: #172554;
       --texto: #e5e7eb;
       --texto-suave: #9ca3af;
-      --accent: #38bdf8;
-      --danger: #f97373;
+      --borda: #1f2937;
       --ok: #4ade80;
-      --shadow: 0 10px 30px rgba(15,23,42,0.75);
+      --alerta: #facc15;
     }
 
     * {
@@ -30,1147 +27,953 @@
       padding: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
         sans-serif;
-      background: radial-gradient(circle at top, #0f172a 0, #020617 55%, #000 100%);
+      background: radial-gradient(circle at top, #0f172a 0, #020617 55%);
       color: var(--texto);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
     }
-
-    /* LOGIN */
-
-    .login-overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.98), #020617 70%);
-      z-index: 20;
-    }
-
-    .login-card {
-      width: 100%;
-      max-width: 380px;
-      background: #020617;
-      border-radius: 18px;
-      padding: 20px 18px 18px;
-      border: 1px solid rgba(148,163,184,0.4);
-      box-shadow: 0 16px 40px rgba(15,23,42,0.95);
-    }
-
-    .login-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .login-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: radial-gradient(circle at 30% 20%, #22d3ee, #0f172a 55%, #020617);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5),
-        0 0 18px rgba(56, 189, 248, 0.7);
-      font-size: 16px;
-      font-weight: 700;
-      color: #e5e7eb;
-      letter-spacing: 0.5px;
-    }
-
-    .login-title {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .login-sub {
-      font-size: 12px;
-      color: var(--texto-suave);
-      margin-bottom: 10px;
-    }
-
-    .login-field {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 10px;
-      font-size: 13px;
-    }
-
-    .login-field label {
-      font-size: 12px;
-      color: var(--texto-suave);
-    }
-
-    .login-field input {
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 10px;
-      border: 1px solid rgba(51, 65, 85, 0.9);
-      padding: 7px 9px;
-      color: var(--texto);
-      font-size: 13px;
-    }
-
-    .login-field input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
-    }
-
-    .login-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    .login-btn {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      background: linear-gradient(135deg, #1d4ed8, #22c55e);
-      color: #f9fafb;
-      font-size: 13px;
-      padding: 7px 12px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: 0.18s ease;
-    }
-
-    .login-btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(15,23,42,0.9);
-    }
-
-    .login-link {
-      font-size: 11px;
-      color: var(--texto-suave);
-      text-align: center;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-
-    .login-alerta {
-      font-size: 11px;
-      color: #fecaca;
-      margin-top: 4px;
-    }
-
-    /* APP */
 
     .app-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ciano);
+      font-weight: 600;
+    }
+
+    .titulo {
+      margin-top: 4px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f9fafb;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 16px;
+      border: 1px solid var(--borda);
+      padding: 16px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.7);
+    }
+
+    h2, h3 {
+      margin: 0 0 10px 0;
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .subtitulo {
+      font-size: 0.85rem;
+      color: var(--texto-suave);
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+      color: var(--texto-suave);
+    }
+
+    input, textarea {
       width: 100%;
-      max-width: 1120px;
-      margin: 24px;
-      background: linear-gradient(145deg, #020617, #020617);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      overflow: hidden;
-      display: none; /* fica oculto até login */
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--borda);
+      background: #020617;
+      color: var(--texto);
+      font-size: 0.9rem;
+      outline: none;
     }
 
-    header {
-      padding: 16px 20px 10px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: radial-gradient(circle at left top, #1e293b, #020617);
+    input:focus, textarea:focus {
+      border-color: var(--azul2);
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.4);
     }
 
-    .marca {
-      display: flex;
-      align-items: center;
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 10px;
     }
 
-    .marca-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 10px;
-      background: radial-gradient(circle at 30% 20%, #22d3ee, #0f172a 55%, #020617);
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .btn-row {
       display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.5),
-        0 0 18px rgba(56, 189, 248, 0.7);
+      gap: 6px;
+      background: #020617;
+      color: var(--texto-suave);
+      border: 1px solid var(--borda);
     }
 
-    .marca-logo span {
-      font-size: 16px;
-      font-weight: 700;
-      color: #e5e7eb;
-      letter-spacing: 0.5px;
-    }
-
-    .marca-texto {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .marca-nome {
-      font-size: 16px;
+    .btn-primary {
+      background: linear-gradient(135deg, var(--azul2), var(--ciano));
+      color: #0b1120;
       font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #e5e7eb;
+      border: none;
     }
 
-    .marca-sub {
-      font-size: 12px;
-      color: var(--texto-suave);
+    .btn-small {
+      padding: 4px 10px;
+      font-size: 0.75rem;
     }
 
-    .header-info {
-      font-size: 11px;
-      color: var(--texto-suave);
-      text-align: right;
+    .btn:hover {
+      opacity: 0.9;
     }
 
     .tabs {
       display: flex;
-      gap: 6px;
-      padding: 8px 10px 10px;
-      background: #020617;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-      overflow-x: auto;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      margin-bottom: 10px;
     }
 
     .tab-btn {
-      border: 1px solid transparent;
-      background: rgba(15, 23, 42, 0.85);
-      color: var(--texto-suave);
-      padding: 6px 10px;
+      flex: 1;
+      min-width: 120px;
+      text-align: center;
       border-radius: 999px;
-      font-size: 13px;
+      padding: 8px 10px;
+      background: #020617;
+      color: var(--texto-suave);
+      border: 1px solid var(--borda);
       cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      white-space: nowrap;
-      transition: 0.18s ease;
-    }
-
-    .tab-btn span.icon {
-      font-size: 14px;
+      font-size: 0.85rem;
+      font-weight: 500;
     }
 
     .tab-btn.active {
-      background: linear-gradient(135deg, #1d4ed8, #22d3ee);
-      color: #f9fafb;
-      border-color: rgba(148, 163, 184, 0.3);
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7),
-        0 0 18px rgba(37, 99, 235, 0.8);
+      background: linear-gradient(135deg, var(--azul2), var(--ciano));
+      color: #0b1120;
+      border-color: transparent;
     }
 
-    .tab-btn:hover:not(.active) {
-      border-color: rgba(148, 163, 184, 0.35);
-      background: rgba(15, 23, 42, 0.98);
-    }
-
-    .conteudo {
-      padding: 18px 18px 22px;
-      display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
-      gap: 16px;
-    }
-
-    @media (max-width: 900px) {
-      .conteudo {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      header {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .header-info {
-        text-align: left;
-      }
-    }
-
-    .card {
-      background: radial-gradient(circle at top, #020617, #020617);
-      border-radius: 16px;
-      padding: 14px 14px 16px;
-      border: 1px solid rgba(51, 65, 85, 0.85);
-      box-shadow: 0 12px 26px rgba(15, 23, 42, 0.7);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.1), transparent 55%);
-      opacity: 0.9;
-      pointer-events: none;
-    }
-
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card h2 span.icon {
-      font-size: 19px;
-    }
-
-    .card p.descricao {
-      margin: 0 0 12px;
-      font-size: 13px;
-      color: var(--texto-suave);
-    }
-
-    .linha {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    .linha.col {
-      flex-direction: column;
-    }
-
-    .campo {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      font-size: 13px;
-    }
-
-    label {
-      font-size: 12px;
-      color: var(--texto-suave);
-    }
-
-    input,
-    textarea {
-      background: rgba(15, 23, 42, 0.95);
-      border-radius: 10px;
-      border: 1px solid rgba(51, 65, 85, 0.9);
-      padding: 7px 9px;
-      color: var(--texto);
-      font-size: 13px;
-      resize: vertical;
-      min-height: 32px;
-    }
-
-    textarea {
-      min-height: 60px;
-    }
-
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
-    }
-
-    .acoes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    button.btn {
-      border-radius: 1000px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      background: rgba(15, 23, 42, 1);
-      color: var(--texto);
-      font-size: 13px;
-      padding: 6px 12px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: 0.18s ease;
-      white-space: nowrap;
-    }
-
-    button.btn.primario {
-      background: linear-gradient(135deg, #1d4ed8, #22c55e);
-      border-color: rgba(34, 197, 94, 0.5);
-      color: #f9fafb;
-      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.7),
-        0 0 16px rgba(22, 163, 74, 0.85);
-    }
-
-    button.btn.destrutivo {
-      border-color: rgba(248, 113, 113, 0.6);
-      color: #fecaca;
-    }
-
-    button.btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.8);
-    }
-
-    button.btn.destrutivo:hover {
-      background: rgba(127, 29, 29, 0.95);
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: 999px;
-      padding: 3px 9px;
-      font-size: 11px;
-      color: var(--texto-suave);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      margin-bottom: 6px;
-    }
-
-    .pill span.dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--ok);
-      box-shadow: 0 0 8px rgba(74, 222, 128, 0.9);
-    }
-
-    .atalhos-meds {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-
-    .atalho-pill {
-      font-size: 11px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(51, 65, 85, 0.9);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--texto-suave);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: 0.15s ease;
-    }
-
-    .atalho-pill:hover {
-      background: rgba(30, 64, 175, 0.9);
-      color: #e5e7eb;
-      border-color: rgba(37, 99, 235, 0.9);
-    }
-
-    .tabela-orc {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 4px;
-      font-size: 12px;
-    }
-
-    .tabela-orc th,
-    .tabela-orc td {
-      border-bottom: 1px solid rgba(51, 65, 85, 0.9);
-      padding: 4px 4px;
-    }
-
-    .tabela-orc th {
-      text-align: left;
-      font-weight: 500;
-      color: var(--texto-suave);
-    }
-
-    .tabela-orc input {
-      font-size: 12px;
-      padding: 4px 6px;
-    }
-
-    .total-orc {
-      margin-top: 8px;
-      font-size: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .badge-total {
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: rgba(22, 163, 74, 0.2);
-      border: 1px solid rgba(34, 197, 94, 0.75);
-      color: #bbf7d0;
-      font-size: 12px;
-    }
-
-    .secao {
+    .section {
       display: none;
+      margin-top: 6px;
     }
 
-    .secao.ativa {
+    .section.active {
       display: block;
     }
 
-    @media print {
-      body {
-        background: #fff;
-      }
-      .app-container,
-      header,
-      .tabs,
-      .conteudo {
-        all: unset;
-        display: block;
-      }
-      .login-overlay {
-        display: none !important;
-      }
-      header,
-      .tabs {
-        display: none !important;
+    .secao-titulo-linha {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.15);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--texto-suave);
+    }
+
+    .info-texto {
+      font-size: 0.75rem;
+      color: var(--texto-suave);
+      margin-top: 4px;
+    }
+
+    .med-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .med-buttons .btn-small {
+      background: rgba(37, 99, 235, 0.16);
+      border-color: rgba(37, 99, 235, 0.4);
+      color: #bfdbfe;
+    }
+
+    .orc-tabela {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 0.8rem;
+    }
+
+    .orc-tabela th,
+    .orc-tabela td {
+      border: 1px solid var(--borda);
+      padding: 6px;
+      text-align: left;
+    }
+
+    .orc-tabela th {
+      background: rgba(15, 23, 42, 0.9);
+      font-weight: 600;
+    }
+
+    .orc-tabela input {
+      padding: 4px 6px;
+      font-size: 0.8rem;
+    }
+
+    .total-box {
+      margin-top: 10px;
+      text-align: right;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--ok);
+    }
+
+    .status-bar {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--ok);
+      min-height: 18px;
+    }
+
+    @media (max-width: 600px) {
+      .titulo {
+        font-size: 1.25rem;
       }
       .card {
-        box-shadow: none;
-        border-radius: 0;
-        border: none;
-      }
-      .somente-impressao {
-        display: block !important;
-      }
-      .nao-imprimir {
-        display: none !important;
+        padding: 12px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- TELA DE LOGIN -->
-  <div class="login-overlay" id="loginOverlay">
-    <div class="login-card">
-      <div class="login-header">
-        <div class="login-logo">BTX</div>
-        <div>
-          <div class="login-title">BTX-TEC</div>
-          <div class="login-sub" id="loginSubtitulo">
-            Crie uma senha de acesso para este dispositivo.
+  <div class="app-container">
+    <div class="header">
+      <div class="logo">BTX-Tech</div>
+      <div class="titulo">App Clínico Simples</div>
+      <div class="subtitulo">
+        Ficha clínica, receituário, atestado e orçamento com memória e geração em PDF.
+      </div>
+    </div>
+
+    <div class="card">
+      <!-- CADASTRO DO PROFISSIONAL -->
+      <section>
+        <h2>Cadastro do Profissional</h2>
+        <div class="subtitulo">
+          Funciona para qualquer profissão ou conselho de classe (CRO, CRM, CREFITO, etc).
+        </div>
+        <div class="grid-2">
+          <div>
+            <label for="profNome">Nome completo</label>
+            <input id="profNome" type="text" placeholder="Ex.: Dr(a). Orlando Abreu Gomes da Silva" />
+          </div>
+          <div>
+            <label for="profProfissao">Profissão</label>
+            <input id="profProfissao" type="text" placeholder="Ex.: Cirurgião-Dentista, Médico, Fisioterapeuta..." />
           </div>
         </div>
+
+        <div class="grid-3" style="margin-top:8px;">
+          <div>
+            <label for="profEspecialidade">Especialidade</label>
+            <input id="profEspecialidade" type="text" placeholder="Ex.: Bucomaxilofacial, Cardiologia..." />
+          </div>
+          <div>
+            <label for="profConselho">Conselho de classe</label>
+            <input id="profConselho" type="text" placeholder="Ex.: CRO-PA 5165, CRM-PA 0000..." />
+          </div>
+          <div>
+            <label for="profTelefone">Telefone / WhatsApp</label>
+            <input id="profTelefone" type="tel" placeholder="(xx) xxxxx-xxxx" />
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:8px;">
+          <div>
+            <label for="profEndereco">Endereço do consultório</label>
+            <input id="profEndereco" type="text" placeholder="Rua, número, bairro" />
+          </div>
+          <div>
+            <label for="profCidade">Cidade / UF</label>
+            <input id="profCidade" type="text" placeholder="Ex.: Abaetetuba - PA" />
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:8px;">
+          <div>
+            <label for="profLogin">Login (identificação interna)</label>
+            <input id="profLogin" type="text" placeholder="Crie um login simples (não é online)" />
+          </div>
+          <div>
+            <label for="profSenha">Senha (uso local)</label>
+            <input id="profSenha" type="password" placeholder="Senha apenas para controle pessoal" />
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="button" onclick="limparCadastro()">Limpar</button>
+          <button class="btn btn-primary" type="button" onclick="salvarCadastro()">Salvar cadastro</button>
+        </div>
+        <div id="statusCadastro" class="status-bar"></div>
+      </section>
+
+      <!-- TABS -->
+      <div class="secao-titulo-linha" style="margin-top:16px;">
+        <h3 style="margin-bottom:0;">Formulários</h3>
+        <span class="pill">Escolha a seção e depois gere o PDF da seção atual</span>
       </div>
 
-      <div id="areaDefinirSenha">
-        <div class="login-field">
-          <label for="senhaNova">Defina uma senha (4 a 8 dígitos)</label>
-          <input type="password" id="senhaNova" inputmode="numeric" maxlength="8" />
-        </div>
-        <div class="login-field">
-          <label for="senhaNova2">Repita a senha</label>
-          <input type="password" id="senhaNova2" inputmode="numeric" maxlength="8" />
-        </div>
-        <div class="login-actions">
-          <button class="login-btn" id="btnSalvarSenha">
-            Salvar senha e entrar
-          </button>
-        </div>
-        <div class="login-alerta">
-          Esta senha fica gravada apenas neste aparelho (armazenamento local).
-          Se você esquecer, será preciso limpar os dados do navegador e configurá-la de novo.
-        </div>
+      <div class="tabs">
+        <button class="tab-btn active" data-target="sec-ficha" onclick="trocarSecao('sec-ficha', this)">
+          Ficha Clínica
+        </button>
+        <button class="tab-btn" data-target="sec-receituario" onclick="trocarSecao('sec-receituario', this)">
+          Receituário
+        </button>
+        <button class="tab-btn" data-target="sec-atestado" onclick="trocarSecao('sec-atestado', this)">
+          Atestado
+        </button>
+        <button class="tab-btn" data-target="sec-orcamento" onclick="trocarSecao('sec-orcamento', this)">
+          Orçamento
+        </button>
       </div>
 
-      <div id="areaLogin" style="display:none;">
-        <div class="login-field">
-          <label for="senhaLogin">Digite sua senha</label>
-          <input type="password" id="senhaLogin" inputmode="numeric" maxlength="8" />
+      <!-- FICHA CLÍNICA -->
+      <section id="sec-ficha" class="section active">
+        <div class="secao-titulo-linha">
+          <h3>Ficha Clínica</h3>
+          <span class="pill">Identificação + Anamnese (SOAP livre) + Procedimentos</span>
         </div>
-        <div class="login-actions">
-          <button class="login-btn" id="btnEntrar">
-            Entrar na ficha clínica
+
+        <div class="grid-2">
+          <div>
+            <label for="pacNome">Nome do paciente</label>
+            <input id="pacNome" type="text" />
+          </div>
+          <div>
+            <label for="pacNascimento">Data de nascimento</label>
+            <input id="pacNascimento" type="date" />
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-top:8px;">
+          <div>
+            <label for="pacMae">Nome da mãe</label>
+            <input id="pacMae" type="text" />
+          </div>
+          <div>
+            <label for="pacTelefone">Telefone / WhatsApp</label>
+            <input id="pacTelefone" type="tel" />
+          </div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="pacEndereco">Endereço</label>
+          <input id="pacEndereco" type="text" />
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="pacQueixa">Queixa principal</label>
+          <textarea id="pacQueixa" placeholder="Relato do paciente sobre o motivo da consulta..."></textarea>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="pacAnamnese">Anamnese / Entrevista completa (modelo SOAP livre)</label>
+          <textarea id="pacAnamnese" placeholder="Use SOAP se quiser (S: queixa e história, O: exame físico, A: hipóteses diagnósticas, P: conduta)..."></textarea>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="pacProcedimentos">Procedimentos realizados (Data – Procedimento – Valor)</label>
+          <textarea id="pacProcedimentos" placeholder="Ex.: 08/12/2025 – Restauração em resina elemento 37 – R$ 250,00&#10;08/12/2025 – Radiografia periapical – R$ 60,00"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="button" onclick="limparFicha()">Limpar</button>
+          <button class="btn" type="button" onclick="salvarFicha()">Salvar ficha</button>
+          <button class="btn btn-primary" type="button" onclick="gerarPDF('sec-ficha')">
+            Gerar PDF (Ficha Clínica)
           </button>
         </div>
-        <div class="login-alerta">
-          Dica: não use a mesma senha de banco ou e-mail. Esta proteção é apenas local para o consultório.
+        <div id="statusFicha" class="status-bar"></div>
+      </section>
+
+      <!-- RECEITUÁRIO -->
+      <section id="sec-receituario" class="section">
+        <div class="secao-titulo-linha">
+          <h3>Receituário</h3>
+          <span class="pill">As medicações abaixo vão sair no PDF normalmente</span>
         </div>
-        <div class="login-link" id="linkResetar">
-          Esqueci a senha / configurar novamente (apaga dados do dentista)
+
+        <div class="info-texto">
+          Cabeçalho usa automaticamente os dados do cadastro (nome, profissão, conselho, endereço, telefone).
         </div>
-      </div>
+
+        <div class="grid-2" style="margin-top:8px;">
+          <div>
+            <label for="recPaciente">Nome do paciente</label>
+            <input id="recPaciente" type="text" />
+          </div>
+          <div>
+            <label for="recData">Data</label>
+            <input id="recData" type="date" />
+          </div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label>Inserir rapidamente medicamentos padrão (clique para adicionar no texto)</label>
+          <div class="med-buttons">
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Paracetamol')">Paracetamol</button>
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Dipirona')">Dipirona</button>
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Ibuprofeno')">Ibuprofeno</button>
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Diclofenaco de sódio')">Diclofenaco de sódio</button>
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Dexametasona')">Dexametasona</button>
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Amoxicilina')">Amoxicilina</button>
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Cefalexina')">Cefalexina</button>
+            <button type="button" class="btn btn-small" onclick="addMedicamento('Amoxicilina + Clavulanato (Clavulin)')">Clavulin</button>
+          </div>
+        </div>
+
+        <div style="margin-top:4px;">
+          <label for="recPrescricao">Prescrição (pode escrever qualquer outro medicamento ou posologia)</label>
+          <textarea id="recPrescricao" placeholder="Ex.: Paracetamol 750 mg – tomar 1 comprimido de 8/8h por 3 dias..."></textarea>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="recOrientacoes">Orientações adicionais</label>
+          <textarea id="recOrientacoes" placeholder="Ex.: Retornar em caso de dor intensa, febre ou sangramento..."></textarea>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="recCidade">Cidade / UF para assinatura</label>
+          <input id="recCidade" type="text" placeholder="Ex.: Abaetetuba - PA" />
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="button" onclick="limparReceituario()">Limpar</button>
+          <button class="btn" type="button" onclick="salvarReceituario()">Salvar receituário</button>
+          <button class="btn btn-primary" type="button" onclick="gerarPDF('sec-receituario')">
+            Gerar PDF (Receituário)
+          </button>
+        </div>
+        <div id="statusReceituario" class="status-bar"></div>
+      </section>
+
+      <!-- ATESTADO -->
+      <section id="sec-atestado" class="section">
+        <div class="secao-titulo-linha">
+          <h3>Atestado</h3>
+          <span class="pill">Completo, usando endereço e dados do cadastro</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="atPaciente">Nome do paciente</label>
+            <input id="atPaciente" type="text" />
+          </div>
+          <div>
+            <label for="atDocumento">Documento (RG / CPF / Prontuário)</label>
+            <input id="atDocumento" type="text" />
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-top:8px;">
+          <div>
+            <label for="atCID">CID (opcional)</label>
+            <input id="atCID" type="text" placeholder="Ex.: K04.0" />
+          </div>
+          <div>
+            <label for="atDias">Dias de afastamento</label>
+            <input id="atDias" type="number" min="0" />
+          </div>
+          <div>
+            <label for="atData">Data</label>
+            <input id="atData" type="date" />
+          </div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="atCidade">Cidade / UF</label>
+          <input id="atCidade" type="text" placeholder="Ex.: Abaetetuba - PA" />
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="atObs">Observações (opcional)</label>
+          <textarea id="atObs" placeholder="Ex.: Paciente foi submetido a procedimento cirúrgico odontológico, apresentando dor e limitação funcional..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="button" onclick="limparAtestado()">Limpar</button>
+          <button class="btn" type="button" onclick="salvarAtestado()">Salvar atestado</button>
+          <button class="btn btn-primary" type="button" onclick="gerarPDF('sec-atestado')">
+            Gerar PDF (Atestado)
+          </button>
+        </div>
+        <div id="statusAtestado" class="status-bar"></div>
+      </section>
+
+      <!-- ORÇAMENTO -->
+      <section id="sec-orcamento" class="section">
+        <div class="secao-titulo-linha">
+          <h3>Orçamento</h3>
+          <span class="pill">Carro-chefe do app – pensado para PDF</span>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="orcPaciente">Nome do paciente</label>
+            <input id="orcPaciente" type="text" />
+          </div>
+          <div>
+            <label for="orcValidade">Validade do orçamento (data ou prazo)</label>
+            <input id="orcValidade" type="text" placeholder="Ex.: Válido por 30 dias" />
+          </div>
+        </div>
+
+        <table class="orc-tabela" id="orcTabela">
+          <thead>
+            <tr>
+              <th>Procedimento / Descrição</th>
+              <th style="width:70px;">Qtd.</th>
+              <th style="width:110px;">Valor unitário (R$)</th>
+              <th style="width:120px;">Subtotal (R$)</th>
+            </tr>
+          </thead>
+          <tbody id="orcCorpo">
+            <!-- Linhas de itens aqui -->
+          </tbody>
+        </table>
+
+        <div class="btn-row" style="justify-content:flex-start; margin-top:8px;">
+          <button class="btn btn-small" type="button" onclick="adicionarItemOrcamento()">+ Adicionar item</button>
+          <button class="btn btn-small" type="button" onclick="limparItensOrcamento()">Limpar itens</button>
+        </div>
+
+        <div class="total-box">
+          Total geral: R$ <span id="orcTotal">0,00</span>
+        </div>
+
+        <div style="margin-top:8px;">
+          <label for="orcObs">Observações / Condições de pagamento</label>
+          <textarea id="orcObs" placeholder="Ex.: Pagamento à vista com desconto de 10%, possibilidade de parcelamento em até 3x..."></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="button" onclick="limparOrcamento()">Limpar tudo</button>
+          <button class="btn" type="button" onclick="salvarOrcamento()">Salvar orçamento</button>
+          <button class="btn btn-primary" type="button" onclick="gerarPDF('sec-orcamento')">
+            Gerar PDF (Orçamento)
+          </button>
+        </div>
+        <div id="statusOrcamento" class="status-bar"></div>
+      </section>
     </div>
   </div>
 
-  <!-- APP -->
-  <div class="app-container nao-imprimir" id="appContainer">
-    <header>
-      <div class="marca">
-        <div class="marca-logo">
-          <span>BTX</span>
-        </div>
-        <div class="marca-texto">
-          <div class="marca-nome">BTX-TEC</div>
-          <div class="marca-sub">Baixo Tocantins • Ficha Clínica Digital</div>
-        </div>
-      </div>
-      <div class="header-info">
-        <div>Prontuário, receituário, atestado e orçamento em um só lugar.</div>
-        <div>Marca discreta • Dados do dentista configuráveis • Uso livre entre dentistas.</div>
-      </div>
-    </header>
-
-    <nav class="tabs">
-      <button class="tab-btn active" data-alvo="secao-dentista">
-        <span class="icon">👤</span> Dentista
-      </button>
-      <button class="tab-btn" data-alvo="secao-ficha">
-        <span class="icon">📋</span> Ficha Clínica
-      </button>
-      <button class="tab-btn" data-alvo="secao-receita">
-        <span class="icon">💊</span> Receituário
-      </button>
-      <button class="tab-btn" data-alvo="secao-atestado">
-        <span class="icon">📝</span> Atestado
-      </button>
-      <button class="tab-btn" data-alvo="secao-orcamento">
-        <span class="icon">💰</span> Orçamentos
-      </button>
-    </nav>
-
-    <main class="conteudo">
-      <!-- COLUNA ESQUERDA -->
-      <section>
-        <!-- DADOS DO DENTISTA -->
-        <div class="card secao ativa" id="secao-dentista">
-          <h2><span class="icon">👤</span> Dados do dentista</h2>
-          <p class="descricao">
-            Preencha uma vez. Esses dados irão para o cabeçalho do receituário,
-            atestado e orçamento. Nada fica fixo com seu nome no código.
-          </p>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="dentista_nome">Nome do dentista</label>
-              <input type="text" id="dentista_nome" />
-            </div>
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="dentista_cro">CRO</label>
-              <input type="text" id="dentista_cro" />
-            </div>
-            <div class="campo">
-              <label for="dentista_especialidade">Especialidade</label>
-              <input type="text" id="dentista_especialidade" />
-            </div>
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="dentista_telefone">Telefone / WhatsApp</label>
-              <input type="text" id="dentista_telefone" />
-            </div>
-            <div class="campo">
-              <label for="dentista_endereco">Endereço profissional</label>
-              <input type="text" id="dentista_endereco" />
-            </div>
-          </div>
-
-          <div class="acoes">
-            <button class="btn primario" id="btnSalvarDentista">
-              💾 Salvar dados do dentista
-            </button>
-            <button class="btn destrutivo" id="btnLimparDentista">
-              🧹 Limpar dados
-            </button>
-          </div>
-        </div>
-
-        <!-- FICHA CLÍNICA -->
-        <div class="card secao" id="secao-ficha">
-          <h2><span class="icon">📋</span> Ficha Clínica do Paciente</h2>
-          <p class="descricao">
-            Campos livres para anamnese e evolução no formato que você já usa
-            no consultório.
-          </p>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="paciente_nome">Nome completo</label>
-              <input type="text" id="paciente_nome" />
-            </div>
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="paciente_nascimento">Data de nascimento</label>
-              <input type="date" id="paciente_nascimento" />
-            </div>
-            <div class="campo">
-              <label for="paciente_idade">Idade</label>
-              <input type="text" id="paciente_idade" />
-            </div>
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="paciente_endereco">Endereço</label>
-              <input type="text" id="paciente_endereco" />
-            </div>
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="paciente_telefone">Telefone</label>
-              <input type="text" id="paciente_telefone" />
-            </div>
-            <div class="campo">
-              <label for="paciente_mae">Nome da mãe</label>
-              <input type="text" id="paciente_mae" />
-            </div>
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="paciente_pai">Nome do pai</label>
-              <input type="text" id="paciente_pai" />
-            </div>
-          </div>
-
-          <div class="linha col">
-            <div class="campo">
-              <label for="queixa">Queixa principal</label>
-              <textarea id="queixa"></textarea>
-            </div>
-          </div>
-
-          <div class="linha col">
-            <div class="campo">
-              <label for="historia">História clínica</label>
-              <textarea id="historia"></textarea>
-            </div>
-          </div>
-
-          <div class="linha col">
-            <div class="campo">
-              <label for="procedimentos">Procedimentos / anotações clínicas</label>
-              <textarea id="procedimentos"></textarea>
-            </div>
-          </div>
-
-          <div class="linha col">
-            <div class="campo">
-              <label for="valores">Valores pagos / datas</label>
-              <textarea id="valores"></textarea>
-            </div>
-          </div>
-
-          <div class="acoes">
-            <button class="btn primario" id="btnSalvarFicha">
-              💾 Salvar ficha (local)
-            </button>
-            <button class="btn" onclick="imprimirSecao('secao-ficha')">
-              🖨️ Imprimir / PDF
-            </button>
-          </div>
-        </div>
-      </section>
-      <!-- COLUNA DIREITA -->
-      <section>
-        <!-- RECEITUÁRIO -->
-        <div class="card secao" id="secao-receita">
-          <h2><span class="icon">💊</span> Receituário odontológico</h2>
-          <p class="descricao">
-            Cabeçalho automático com seus dados. Use os atalhos ou digite a
-            prescrição manualmente.
-          </p>
-
-          <div class="pill">
-            <span class="dot"></span>
-            Dados do dentista vêm da aba "Dentista".
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="receita_paciente">Paciente</label>
-              <input type="text" id="receita_paciente" />
-            </div>
-            <div class="campo">
-              <label for="receita_data">Data</label>
-              <input type="date" id="receita_data" />
-            </div>
-          </div>
-
-          <label>Atalhos de medicamentos</label>
-          <div class="atalhos-meds">
-            <button class="atalho-pill" data-med="Paracetamol 750 mg, tomar 1 comprimido de 8/8h por 3 dias.">
-              Paracetamol 750 mg
-            </button>
-            <button class="atalho-pill" data-med="Dipirona 500 mg, tomar 1 comprimido de 6/6h se dor ou febre.">
-              Dipirona 500 mg
-            </button>
-            <button class="atalho-pill" data-med="Ibuprofeno 600 mg, tomar 1 comprimido de 8/8h por 5 dias.">
-              Ibuprofeno 600 mg
-            </button>
-            <button class="atalho-pill" data-med="Amoxicilina 500 mg, tomar 1 cápsula de 8/8h por 7 dias.">
-              Amoxicilina 500 mg
-            </button>
-            <button class="atalho-pill" data-med="Amoxicilina + Clavulanato 875/125 mg, tomar 1 comprimido de 12/12h por 7 dias.">
-              Amox + Clav
-            </button>
-            <button class="atalho-pill" data-med="Azitromicina 500 mg, tomar 1 comprimido ao dia por 3 dias.">
-              Azitromicina 500 mg
-            </button>
-          </div>
-
-          <div class="linha col">
-            <div class="campo">
-              <label for="receita_texto">Prescrição</label>
-              <textarea id="receita_texto"></textarea>
-            </div>
-          </div>
-
-          <div class="acoes">
-            <button class="btn primario" onclick="imprimirSecao('secao-receita')">
-              🖨️ Imprimir / PDF
-            </button>
-          </div>
-        </div>
-
-        <!-- ATESTADO -->
-        <div class="card secao" id="secao-atestado">
-          <h2><span class="icon">📝</span> Atestado odontológico</h2>
-          <p class="descricao">
-            Use texto livre para afastamento, escola ou trabalho. Cabeçalho
-            usa os dados do dentista.
-          </p>
-
-          <div class="pill">
-            <span class="dot"></span>
-            Os dados de cabeçalho virão da aba "Dentista".
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="atestado_paciente">Paciente</label>
-              <input type="text" id="atestado_paciente" />
-            </div>
-            <div class="campo">
-              <label for="atestado_data">Data</label>
-              <input type="date" id="atestado_data" />
-            </div>
-          </div>
-
-          <div class="linha col">
-            <div class="campo">
-              <label for="atestado_texto">Texto do atestado</label>
-              <textarea id="atestado_texto"></textarea>
-            </div>
-          </div>
-
-          <div class="acoes">
-            <button class="btn primario" onclick="imprimirSecao('secao-atestado')">
-              🖨️ Imprimir / PDF
-            </button>
-          </div>
-        </div>
-
-        <!-- ORÇAMENTO -->
-        <div class="card secao" id="secao-orcamento">
-          <h2><span class="icon">💰</span> Orçamento odontológico</h2>
-          <p class="descricao">
-            Preencha os procedimentos e valores. O total é calculado
-            automaticamente.
-          </p>
-
-          <div class="pill">
-            <span class="dot"></span>
-            Cabeçalho com dados do dentista, se desejar imprimir.
-          </div>
-
-          <div class="linha">
-            <div class="campo">
-              <label for="orc_paciente">Paciente</label>
-              <input type="text" id="orc_paciente" />
-            </div>
-            <div class="campo">
-              <label for="orc_data">Data</label>
-              <input type="date" id="orc_data" />
-            </div>
-          </div>
-
-          <table class="tabela-orc">
-            <thead>
-              <tr>
-                <th style="width: 60%">Procedimento</th>
-                <th style="width: 40%">Valor (R$)</th>
-              </tr>
-            </thead>
-            <tbody id="orc_tbody">
-              <tr>
-                <td><input type="text" class="orc_proc" /></td>
-                <td><input type="number" step="0.01" class="orc_valor" /></td>
-              </tr>
-              <tr>
-                <td><input type="text" class="orc_proc" /></td>
-                <td><input type="number" step="0.01" class="orc_valor" /></td>
-              </tr>
-              <tr>
-                <td><input type="text" class="orc_proc" /></td>
-                <td><input type="number" step="0.01" class="orc_valor" /></td>
-              </tr>
-              <tr>
-                <td><input type="text" class="orc_proc" /></td>
-                <td><input type="number" step="0.01" class="orc_valor" /></td>
-              </tr>
-              <tr>
-                <td><input type="text" class="orc_proc" /></td>
-                <td><input type="number" step="0.01" class="orc_valor" /></td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div class="total-orc">
-            <span>Total</span>
-            <span class="badge-total" id="orc_total">R$ 0,00</span>
-          </div>
-
-          <div class="acoes">
-            <button class="btn" id="btnAddLinha">
-              ➕ Adicionar linha
-            </button>
-            <button class="btn primario" onclick="imprimirSecao('secao-orcamento')">
-              🖨️ Imprimir / PDF
-            </button>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
   <script>
-    // ---- LOGIN LOCAL ----
-    const STORAGE_SENHA = "btx_senha";
-    const loginOverlay = document.getElementById("loginOverlay");
-    const appContainer = document.getElementById("appContainer");
-    const areaDefinirSenha = document.getElementById("areaDefinirSenha");
-    const areaLogin = document.getElementById("areaLogin");
-    const loginSubtitulo = document.getElementById("loginSubtitulo");
-    const btnSalvarSenha = document.getElementById("btnSalvarSenha");
-    const btnEntrar = document.getElementById("btnEntrar");
-    const senhaNova = document.getElementById("senhaNova");
-    const senhaNova2 = document.getElementById("senhaNova2");
-    const senhaLogin = document.getElementById("senhaLogin");
-    const linkResetar = document.getElementById("linkResetar");
-
-    function mostrarApp() {
-      if (loginOverlay) loginOverlay.style.display = "none";
-      if (appContainer) appContainer.style.display = "block";
+    // --------- UTILIDADES GERAIS ---------
+    function mostrarStatus(id, msg) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.textContent = msg;
+      if (!msg) return;
+      setTimeout(() => {
+        el.textContent = "";
+      }, 2500);
     }
 
-    function verificarEstadoLogin() {
-      const senhaSalva = localStorage.getItem(STORAGE_SENHA);
-      if (senhaSalva) {
-        // Já existe senha configurada: mostra tela de login
-        areaDefinirSenha.style.display = "none";
-        areaLogin.style.display = "block";
-        loginSubtitulo.textContent = "Digite sua senha para acessar a ficha clínica.";
-      } else {
-        // Não existe senha: define nova
-        areaDefinirSenha.style.display = "block";
-        areaLogin.style.display = "none";
-        loginSubtitulo.textContent = "Crie uma senha de acesso para este dispositivo.";
-      }
-    }
-
-    btnSalvarSenha.addEventListener("click", () => {
-      const s1 = senhaNova.value.trim();
-      const s2 = senhaNova2.value.trim();
-      if (s1.length < 4 || s1.length > 8) {
-        alert("A senha deve ter entre 4 e 8 dígitos.");
-        return;
-      }
-      if (s1 !== s2) {
-        alert("As senhas não conferem.");
-        return;
-      }
-      localStorage.setItem(STORAGE_SENHA, s1);
-      senhaNova.value = "";
-      senhaNova2.value = "";
-      mostrarApp();
-    });
-
-    btnEntrar.addEventListener("click", () => {
-      const s = senhaLogin.value.trim();
-      const senhaSalva = localStorage.getItem(STORAGE_SENHA);
-      if (s && senhaSalva && s === senhaSalva) {
-        senhaLogin.value = "";
-        mostrarApp();
-      } else {
-        alert("Senha incorreta.");
-      }
-    });
-
-    if (linkResetar) {
-      linkResetar.addEventListener("click", () => {
-        if (!confirm("Isso vai apagar a senha e os dados do dentista neste aparelho. Deseja continuar?")) return;
-        localStorage.removeItem(STORAGE_SENHA);
-        // apagar dados do dentista também
-        ["dentista_nome","dentista_cro","dentista_especialidade","dentista_telefone","dentista_endereco"].forEach(id => {
-          localStorage.removeItem("btx_dentista_" + id);
-        });
-        verificarEstadoLogin();
-        alert("Configuração de senha resetada. Defina uma nova senha.");
+    function trocarSecao(idSecao, botao) {
+      document.querySelectorAll(".section").forEach(sec => {
+        sec.classList.remove("active");
       });
+      document.getElementById(idSecao).classList.add("active");
+
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
+      if (botao) botao.classList.add("active");
     }
 
-    // ---- TROCA DE ABAS ----
-    function ativarAba(id) {
-      document.querySelectorAll(".tab-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.alvo === id);
-      });
-      document.querySelectorAll(".secao").forEach((secao) => {
-        secao.classList.toggle("ativa", secao.id === id);
-      });
-    }
-
-    document.querySelectorAll(".tab-btn").forEach((btn) => {
-      btn.addEventListener("click", () => ativarAba(btn.dataset.alvo));
-    });
-
-    // ---- LOCALSTORAGE DENTISTA ----
-    const camposDentista = [
-      "dentista_nome",
-      "dentista_cro",
-      "dentista_especialidade",
-      "dentista_telefone",
-      "dentista_endereco",
-    ];
-
-    function carregarDentista() {
-      camposDentista.forEach((id) => {
-        const salvo = localStorage.getItem("btx_dentista_" + id);
-        if (salvo) {
-          const campo = document.getElementById(id);
-          if (campo) campo.value = salvo;
-        }
-      });
-    }
-
-    function salvarDentista() {
-      camposDentista.forEach((id) => {
-        const campo = document.getElementById(id);
-        if (campo) {
-          localStorage.setItem("btx_dentista_" + id, campo.value.trim());
-        }
-      });
-      alert("Dados do dentista salvos neste dispositivo.");
-    }
-
-    function limparDentista() {
-      if (!confirm("Apagar todos os dados do dentista neste dispositivo?"))
-        return;
-      camposDentista.forEach((id) => {
-        localStorage.removeItem("btx_dentista_" + id);
-        const campo = document.getElementById(id);
-        if (campo) campo.value = "";
-      });
-    }
-
-    document.getElementById("btnSalvarDentista").addEventListener("click", salvarDentista);
-    document.getElementById("btnLimparDentista").addEventListener("click", limparDentista);
-
-    // ---- SALVAR FICHA (última ficha) ----
-    function salvarFicha() {
+    // --------- CADASTRO ---------
+    function salvarCadastro() {
       const dados = {
-        nome: document.getElementById("paciente_nome").value,
-        nascimento: document.getElementById("paciente_nascimento").value,
-        idade: document.getElementById("paciente_idade").value,
-        endereco: document.getElementById("paciente_endereco").value,
-        tel: document.getElementById("paciente_telefone").value,
-        mae: document.getElementById("paciente_mae").value,
-        pai: document.getElementById("paciente_pai").value,
-        queixa: document.getElementById("queixa").value,
-        historia: document.getElementById("historia").value,
-        procedimentos: document.getElementById("procedimentos").value,
-        valores: document.getElementById("valores").value,
+        nome: document.getElementById("profNome").value || "",
+        profissao: document.getElementById("profProfissao").value || "",
+        especialidade: document.getElementById("profEspecialidade").value || "",
+        conselho: document.getElementById("profConselho").value || "",
+        telefone: document.getElementById("profTelefone").value || "",
+        endereco: document.getElementById("profEndereco").value || "",
+        cidade: document.getElementById("profCidade").value || "",
+        login: document.getElementById("profLogin").value || "",
+        senha: document.getElementById("profSenha").value || ""
       };
-      localStorage.setItem("btx_ficha_ultima", JSON.stringify(dados));
-      alert("Ficha salva localmente (última ficha).");
-    }
-    document.getElementById("btnSalvarFicha").addEventListener("click", salvarFicha);
-
-    // ---- ATALHOS DE MEDICAÇÃO ----
-    document.querySelectorAll(".atalho-pill").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const texto = btn.dataset.med || "";
-        const campo = document.getElementById("receita_texto");
-        if (!campo) return;
-        campo.value = (campo.value + "\\n" + texto).trim();
-      });
-    });
-
-    // ---- ORÇAMENTO: SOMA AUTOMÁTICA ----
-    function atualizarTotal() {
-      let total = 0;
-      document.querySelectorAll(".orc_valor").forEach((campo) => {
-        const val = parseFloat((campo.value || "").replace(",", "."));
-        if (!isNaN(val)) total += val;
-      });
-      document.getElementById("orc_total").textContent =
-        "R$ " + total.toFixed(2).replace(".", ",");
+      localStorage.setItem("btx_profissional", JSON.stringify(dados));
+      mostrarStatus("statusCadastro", "Cadastro salvo com sucesso.");
     }
 
-    function adicionarLinha() {
-      const tbody = document.getElementById("orc_tbody");
+    function carregarCadastro() {
+      const salvo = localStorage.getItem("btx_profissional");
+      if (!salvo) return;
+      try {
+        const d = JSON.parse(salvo);
+        document.getElementById("profNome").value = d.nome || "";
+        document.getElementById("profProfissao").value = d.profissao || "";
+        document.getElementById("profEspecialidade").value = d.especialidade || "";
+        document.getElementById("profConselho").value = d.conselho || "";
+        document.getElementById("profTelefone").value = d.telefone || "";
+        document.getElementById("profEndereco").value = d.endereco || "";
+        document.getElementById("profCidade").value = d.cidade || "";
+        document.getElementById("profLogin").value = d.login || "";
+        document.getElementById("profSenha").value = d.senha || "";
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function limparCadastro() {
+      ["profNome","profProfissao","profEspecialidade","profConselho",
+       "profTelefone","profEndereco","profCidade","profLogin","profSenha"
+      ].forEach(id => document.getElementById(id).value = "");
+      mostrarStatus("statusCadastro", "Cadastro limpo (não esqueça de salvar novamente).");
+    }
+
+    // --------- FICHA CLÍNICA ---------
+    function salvarFicha() {
+      const f = {
+        nome: document.getElementById("pacNome").value || "",
+        nasc: document.getElementById("pacNascimento").value || "",
+        mae: document.getElementById("pacMae").value || "",
+        tel: document.getElementById("pacTelefone").value || "",
+        end: document.getElementById("pacEndereco").value || "",
+        queixa: document.getElementById("pacQueixa").value || "",
+        anamnese: document.getElementById("pacAnamnese").value || "",
+        procedimentos: document.getElementById("pacProcedimentos").value || ""
+      };
+      localStorage.setItem("btx_ficha", JSON.stringify(f));
+      mostrarStatus("statusFicha", "Ficha clínica salva.");
+    }
+
+    function carregarFicha() {
+      const salvo = localStorage.getItem("btx_ficha");
+      if (!salvo) return;
+      try {
+        const f = JSON.parse(salvo);
+        document.getElementById("pacNome").value = f.nome || "";
+        document.getElementById("pacNascimento").value = f.nasc || "";
+        document.getElementById("pacMae").value = f.mae || "";
+        document.getElementById("pacTelefone").value = f.tel || "";
+        document.getElementById("pacEndereco").value = f.end || "";
+        document.getElementById("pacQueixa").value = f.queixa || "";
+        document.getElementById("pacAnamnese").value = f.anamnese || "";
+        document.getElementById("pacProcedimentos").value = f.procedimentos || "";
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function limparFicha() {
+      ["pacNome","pacNascimento","pacMae","pacTelefone","pacEndereco",
+       "pacQueixa","pacAnamnese","pacProcedimentos"
+      ].forEach(id => document.getElementById(id).value = "");
+      mostrarStatus("statusFicha", "Ficha clínica limpa.");
+    }
+
+    // --------- RECEITUÁRIO ---------
+    function addMedicamento(txt) {
+      const campo = document.getElementById("recPrescricao");
+      if (!campo.value) {
+        campo.value = txt + " – ";
+      } else {
+        campo.value += "\n" + txt + " – ";
+      }
+      campo.focus();
+    }
+
+    function salvarReceituario() {
+      const r = {
+        paciente: document.getElementById("recPaciente").value || "",
+        data: document.getElementById("recData").value || "",
+        prescricao: document.getElementById("recPrescricao").value || "",
+        orientacoes: document.getElementById("recOrientacoes").value || "",
+        cidade: document.getElementById("recCidade").value || ""
+      };
+      localStorage.setItem("btx_receituario", JSON.stringify(r));
+      mostrarStatus("statusReceituario", "Receituário salvo.");
+    }
+
+    function carregarReceituario() {
+      const salvo = localStorage.getItem("btx_receituario");
+      if (!salvo) return;
+      try {
+        const r = JSON.parse(salvo);
+        document.getElementById("recPaciente").value = r.paciente || "";
+        document.getElementById("recData").value = r.data || "";
+        document.getElementById("recPrescricao").value = r.prescricao || "";
+        document.getElementById("recOrientacoes").value = r.orientacoes || "";
+        document.getElementById("recCidade").value = r.cidade || "";
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function limparReceituario() {
+      ["recPaciente","recData","recPrescricao","recOrientacoes","recCidade"]
+      .forEach(id => document.getElementById(id).value = "");
+      mostrarStatus("statusReceituario", "Receituário limpo.");
+    }
+
+    // --------- ATESTADO ---------
+    function salvarAtestado() {
+      const a = {
+        paciente: document.getElementById("atPaciente").value || "",
+        doc: document.getElementById("atDocumento").value || "",
+        cid: document.getElementById("atCID").value || "",
+        dias: document.getElementById("atDias").value || "",
+        data: document.getElementById("atData").value || "",
+        cidade: document.getElementById("atCidade").value || "",
+        obs: document.getElementById("atObs").value || ""
+      };
+      localStorage.setItem("btx_atestado", JSON.stringify(a));
+      mostrarStatus("statusAtestado", "Atestado salvo.");
+    }
+
+    function carregarAtestado() {
+      const salvo = localStorage.getItem("btx_atestado");
+      if (!salvo) return;
+      try {
+        const a = JSON.parse(salvo);
+        document.getElementById("atPaciente").value = a.paciente || "";
+        document.getElementById("atDocumento").value = a.doc || "";
+        document.getElementById("atCID").value = a.cid || "";
+        document.getElementById("atDias").value = a.dias || "";
+        document.getElementById("atData").value = a.data || "";
+        document.getElementById("atCidade").value = a.cidade || "";
+        document.getElementById("atObs").value = a.obs || "";
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function limparAtestado() {
+      ["atPaciente","atDocumento","atCID","atDias","atData","atCidade","atObs"]
+      .forEach(id => document.getElementById(id).value = "");
+      mostrarStatus("statusAtestado", "Atestado limpo.");
+    }
+
+    // --------- ORÇAMENTO ---------
+    function adicionarItemOrcamento(item = {}) {
+      const corpo = document.getElementById("orcCorpo");
       const tr = document.createElement("tr");
+      tr.className = "orc-item-row";
+
       tr.innerHTML = `
-        <td><input type="text" class="orc_proc" /></td>
-        <td><input type="number" step="0.01" class="orc_valor" /></td>
+        <td><input type="text" class="orc-desc" placeholder="Procedimento" value="${item.desc || ""}"></td>
+        <td><input type="number" class="orc-qtd" min="1" value="${item.qtd || 1}"></td>
+        <td><input type="number" class="orc-valor" min="0" step="0.01" value="${item.valor || ""}"></td>
+        <td><input type="text" class="orc-subtotal" readonly></td>
       `;
-      tbody.appendChild(tr);
-      tr.querySelector(".orc_valor").addEventListener("input", atualizarTotal);
-    }
 
-    document.getElementById("btnAddLinha").addEventListener("click", adicionarLinha);
-    document.querySelectorAll(".orc_valor").forEach((campo) => {
-      campo.addEventListener("input", atualizarTotal);
-    });
-
-    // ---- IMPRESSÃO / PDF DE UMA SEÇÃO ----
-    function imprimirSecao(idSecao) {
-      const secao = document.getElementById(idSecao);
-      if (!secao) return;
-      document.querySelectorAll(".secao").forEach((s) => {
-        s.classList.remove("somente-impressao");
+      corpo.appendChild(tr);
+      atualizarTotais();
+      tr.querySelectorAll(".orc-qtd, .orc-valor").forEach(inp => {
+        inp.addEventListener("input", atualizarTotais);
       });
-      secao.classList.add("somente-impressao");
-      window.print();
     }
-    window.imprimirSecao = imprimirSecao;
 
-    // ---- INICIALIZAÇÃO ----
-    document.addEventListener("DOMContentLoaded", () => {
-      verificarEstadoLogin();
-      carregarDentista();
+    function atualizarTotais() {
+      let total = 0;
+      document.querySelectorAll(".orc-item-row").forEach(row => {
+        const qtd = parseFloat(row.querySelector(".orc-qtd").value.replace(",", ".")) || 0;
+        const valor = parseFloat(row.querySelector(".orc-valor").value.replace(",", ".")) || 0;
+        const subtotal = qtd * valor;
+        row.querySelector(".orc-subtotal").value = subtotal.toFixed(2).replace(".", ",");
+        total += subtotal;
+      });
+      document.getElementById("orcTotal").textContent = total.toFixed(2).replace(".", ",");
+    }
 
-      const hoje = new Date().toISOString().slice(0, 10);
-      const rData = document.getElementById("receita_data");
-      const aData = document.getElementById("atestado_data");
-      const oData = document.getElementById("orc_data");
-      if (rData && !rData.value) rData.value = hoje;
-      if (aData && !aData.value) aData.value = hoje;
-      if (oData && !oData.value) oData.value = hoje;
+    function salvarOrcamento() {
+      const dados = {
+        paciente: document.getElementById("orcPaciente").value || "",
+        validade: document.getElementById("orcValidade").value || "",
+        obs: document.getElementById("orcObs").value || "",
+        itens: []
+      };
+
+      document.querySelectorAll(".orc-item-row").forEach(row => {
+        const desc = row.querySelector(".orc-desc").value || "";
+        const qtd = row.querySelector(".orc-qtd").value || "";
+        const valor = row.querySelector(".orc-valor").value || "";
+        if (desc || valor) {
+          dados.itens.push({ desc, qtd, valor });
+        }
+      });
+
+      localStorage.setItem("btx_orcamento", JSON.stringify(dados));
+      mostrarStatus("statusOrcamento", "Orçamento salvo.");
+    }
+
+    function carregarOrcamento() {
+      const salvo = localStorage.getItem("btx_orcamento");
+      if (!salvo) {
+        // cria pelo menos uma linha
+        adicionarItemOrcamento();
+        return;
+      }
+      try {
+        const d = JSON.parse(salvo);
+        document.getElementById("orcPaciente").value = d.paciente || "";
+        document.getElementById("orcValidade").value = d.validade || "";
+        document.getElementById("orcObs").value = d.obs || "";
+        document.getElementById("orcCorpo").innerHTML = "";
+        if (d.itens && d.itens.length) {
+          d.itens.forEach(it => adicionarItemOrcamento(it));
+        } else {
+          adicionarItemOrcamento();
+        }
+        atualizarTotais();
+      } catch (e) {
+        console.error(e);
+        adicionarItemOrcamento();
+      }
+    }
+
+    function limparItensOrcamento() {
+      document.getElementById("orcCorpo").innerHTML = "";
+      adicionarItemOrcamento();
+      atualizarTotais();
+    }
+
+    function limparOrcamento() {
+      document.getElementById("orcPaciente").value = "";
+      document.getElementById("orcValidade").value = "";
+      document.getElementById("orcObs").value = "";
+      limparItensOrcamento();
+      mostrarStatus("statusOrcamento", "Orçamento limpo.");
+    }
+
+    // --------- GERAR PDF (USANDO PRINT) ---------
+    function gerarPDF(secaoId) {
+      const secao = document.getElementById(secaoId);
+      if (!secao) return;
+
+      const cadastroSalvo = JSON.parse(localStorage.getItem("btx_profissional") || "{}");
+
+      // Monta cabeçalho com dados do profissional
+      const cabecalhoProf = `
+        <div style="text-align:center; margin-bottom:16px; font-family:sans-serif;">
+          <div style="font-size:18px; font-weight:bold;">${cadastroSalvo.nome || ""}</div>
+          <div style="font-size:14px;">${cadastroSalvo.profissao || ""}${cadastroSalvo.especialidade ? " - " + cadastroSalvo.especialidade : ""}</div>
+          <div style="font-size:13px;">${cadastroSalvo.conselho || ""}</div>
+          <div style="font-size:12px; margin-top:4px;">${cadastroSalvo.endereco || ""}</div>
+          <div style="font-size:12px;">${cadastroSalvo.cidade || ""}</div>
+          <div style="font-size:12px;">${cadastroSalvo.telefone || ""}</div>
+          <hr style="margin-top:12px;">
+        </div>
+      `;
+
+      const conteudo = `
+        <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>PDF</title>
+            <style>
+              body {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+                margin: 24px;
+                font-size: 13px;
+              }
+              h2, h3 {
+                margin: 0 0 8px 0;
+              }
+              label {
+                font-weight: 600;
+                font-size: 12px;
+              }
+              input, textarea {
+                width: 100%;
+                font-size: 13px;
+              }
+              table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 8px;
+              }
+              th, td {
+                border: 1px solid #444;
+                padding: 4px;
+                font-size: 12px;
+              }
+              .assinatura {
+                margin-top: 40px;
+                text-align: center;
+                font-size: 12px;
+              }
+              .assinatura hr {
+                width: 60%;
+              }
+            </style>
+          </head>
+          <body>
+            ${cabecalhoProf}
+            ${secao.innerHTML}
+            <div class="assinatura">
+              <hr>
+              <div>${cadastroSalvo.nome || ""}</div>
+              <div>${cadastroSalvo.profissao || ""}${cadastroSalvo.especialidade ? " - " + cadastroSalvo.especialidade : ""}</div>
+              <div>${cadastroSalvo.conselho || ""}</div>
+            </div>
+          </body>
+        </html>
+      `;
+
+      const janela = window.open("", "_blank");
+      janela.document.open();
+      janela.document.write(conteudo);
+      janela.document.close();
+      janela.focus();
+      janela.print(); // Aqui o usuário escolhe "Salvar como PDF"
+    }
+
+    // --------- INICIALIZAÇÃO ---------
+    window.addEventListener("load", () => {
+      carregarCadastro();
+      carregarFicha();
+      carregarReceituario();
+      carregarAtestado();
+      carregarOrcamento();
     });
   </script>
 </body>
